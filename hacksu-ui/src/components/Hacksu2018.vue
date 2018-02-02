@@ -21,31 +21,48 @@
 <section>
   <div class="text-container">
     <h1>Who are we?</h1>
-    <h2>My name is {{myName}} </h2>
-    <input v-model="myName">
     <p>Hacksu is a student organization at Kent State University focused on learning and utilizing contemporary technologies. We are a very diverse community, spanning multiple majors from Fashion Design to Zoology and are open to students of any skill level. Everyone is welcome!</p>
 
     <div class= "member-container">
     <div v-for="name in names" class='member-icon'>
-      <div class="member-name">
-        {{name}}
+        <div class="member-name">
+          {{name}}
+        </div>
       </div>
-    </div>
-    </div>
-    <div class="member-container">
+    
     <div class="member-icon">
-        <div class="member-name">Nolan</div>
-        <img class="member-icon-image idle-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://lh3.googleusercontent.com/lpQE7yTChj9bdWKZCINKctuWs9Fd3RtzKOh0ffT27CgbDK2S5o7PM8hAjf4qpVsHS2UKdEnjXejHRT2lUACqgYO0SVbH5S1hPCkcXuswGDhBfWqJK1aNa0Lf6pbO-5mqfp3N7zinCWjKuGXInb_Ul0LSXGpMe9svifDrQUizLrnuUsMv6QS6ij-dRrL_9eWCSN0t-vqHMSlDudxAfEIayTyhbHAZ1eawZxCYwnTBNhh2F7XeW5BMmv4G2xOn0UP14BOsKeudw-TJTynMCUo1JLglIZ2Ii1_TBJFfApqLLq2J666OA0RYQrWLgUHRZbi6s6V8-hseiqDaK2aGFOlq1OpwqgYpbyMzhqBQ6Bn7hO1tY7YXl5hXPnJhytoIuWOSm--GrealyJxcIXRNLlKR5ZqZcMh5_ve9IEVF-adXyBU3LZyCXtIMaZowb41GFhro21XCDbgcIcA3MrytPKGQ6PGpQCelZtJMO-kkzgd03QArBstv_1q7TIGrgq70-3MSq32LvkKWjN1sJQNhkNC5iCe9TG8susgzLhFxMBdH6R7aVuz4Romu9liXWlu2SbDdACwPhHzk=w2000-h1694" />
+        <div class="member-name">Baymax</div>
+        <img class="member-icon-image idle-icon" src="https://i.pinimg.com/736x/87/58/a9/8758a924587757e72147c9810ff4b17c--big-hero--baymax.jpg" />
 
-        <img class="member-icon-image hover-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://lh3.googleusercontent.com/u-ICnoBlKl7HX44hMVskcldvOFm7V4F0trlALj9lUFnS3BSE-wZneZPkTbrVje65CyI8_9lUTA4_tUgOJm6D0ztGvxMDno3fCmRmd2PBrOCGLIXdoosAYFajrl7xZq33evS279vHlHB8jmVEUBmUG2Bq7_ICGEhSlQJHM2_MA4o99PyoAcVP4TSSLPHAT2DrzBKw2k9our976TAyTKERaRxPW8tGrfPAVR0Dx7w0Mod2aOFe0I5VOI29IYUaxeT8-2buw8Dr-QkokCp9hVKNJFYAWWoJjAFGsei8cSO_dvNOw9Q4-bZzEnDjuFuE1e5z511oZMEI0WHcIFFnRIDl4MVapRL4BfxsSEjSyj7L4P5SA4EC2bpxhMZCrb2ggYaVQDaFIXf8Q8dkaE-4RB9yhxnsVdnL1RcVQD6Vie-stWcw1mtZjKsD0R7BgCkUOc7HHlWQ_Kkm7pCEpge6nzeAwkLOiVIjxci-o8HpKGf4kFqz2fQvyCx-ui-4_h8TQQ19xYO0rUZFhhYd7HU2SRiUcrU3VCQPoVUuW9gMyYcGHmSQ3lL-6Z6eu1hNW_BkGtn3egnz1DeO=w2000-h1694" />
+        <img class="member-icon-image hover-icon"  src="https://i.ytimg.com/vi/ijnF67942ac/maxresdefault.jpg" />
+    </div>
+    <div class="member-icon">
+        <div class="member-name 2">Stitch</div>
+        <img class="member-icon-image idle-icon" src="https://s-media-cache-ak0.pinimg.com/originals/94/be/4e/94be4ec04d97aa1d1da94c73843c8789.jpg" />
 
-        <img class="member-icon-image active-icon" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://lh3.googleusercontent.com/UWNwFBJT_kaOhNWzSJaK2XyISktb-REMw_q9-ehB-vqzb6-Qgkp45ZZVFv435alrcW4sbbXrra5VB3QqP1HOmIJKqYApKSxqKUi7AXuDNJa1ftkd898DxXM29qKFSQqrJAVM1TpFrZ2HeR3qM4OUb6OOfMFOrDEFrmwbyYKYlHt1bMjvyguIELMY6ATnaNtOTGnPf3JTsXXEH3G9_1OJUD52qLypAyHES9b7bfAOoTN4GWqmK8HJ-tTqo4wm0hOU2KC3-BXCpUBZTb_aLr0WY__Pvz1QKJNYGWAk9Gclaxb98yL7mnWfYCVrNOr4tKO7X4u1c8Qx0MG3HaTI6WQ2N7I-gIdvfGmdhp6deSm0hsHmijg-XlqS0e6FAFUyCEesykvoTfIuuCh2z2N8xjeMjTDUGAR0lq2AfknHfnRhx0GWcOf80eldeDYH7AaUZi6RANV3RXSEfRrGuECjdpW6Lh9D939nwBNIgPhMR-AN5UmYXg3u9RBDF7vPuGFhhbSotfooAt75OuJzonMfLK4Sqkl-h-t-jdQXf1Ng5vBtJec7MuccTO-oh7w1W8dwRRnlj8-Jrok4=w2000-h1694" />
+        <img class="member-icon-image hover-icon"  src="https://s-media-cache-ak0.pinimg.com/474x/88/6c/9e/886c9e242117c1eff5cd0a8a11eddba0.jpg" />
+      </div>
+      
+    <div class="member-icon">
+        <div class="member-name 3">Joy</div>
+        <img class="member-icon-image idle-icon" src="https://img1.etsystatic.com/111/1/10775770/il_570xN.859857221_58xt.jpg" />
 
+        <img class="member-icon-image hover-icon"  src="https://i.pinimg.com/736x/bc/35/f2/bc35f2bed486518ee901b3c2e0e74295--joy-movie-disney-inside-out.jpg" />
+      </div>
+      
+    <div class="member-icon">
+        <div class="member-name">Wall-e</div>
+        <img class="member-icon-image idle-icon" src="https://nootrix.com/wp-content/uploads/2014/09/wall-eDisneyMovie-680x365_c.jpg" />
+
+        <img class="member-icon-image hover-icon"  src="https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-12561-of3s1g_a2a6d857.jpeg" />
       </div>
     </div>
-
-  </div>
-</section>
+      
+      
+      
+      </div>
+      </section>
+      
 <section class="green-section" id="meetings">
   <h1 id = 'meetingsheader' class="text-container">Meetings</h1>
   <div class="text-container">
@@ -107,7 +124,6 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      myName: 'ben',
       names: ['elizabeth', 'alex', 'sami'],
     };
   },
@@ -245,6 +261,7 @@ section {
   border-radius: 100%;
   transform: translate(-50%, -50%);
 }
+  
 .idle-icon {
   opacity: 1;
 }
@@ -293,6 +310,83 @@ section {
 			z-index: 99;
 }
 .member-icon:hover .member-name {
+  width: 100%;
+  padding: 10px 20px;
+  opacity: 1;
+  transition: width 0.2s ease-out, padding 0.2s ease-out;
+}
+  
+  .member-icon {
+  position: relative;
+  width: 25vw;
+  height: 25vw;
+  min-width: 90px;
+  min-height: 90px;
+  max-width: 150px;
+  max-height: 150px;
+  margin: 4px;
+  border-radius: 100%;
+  background-color: #FAFAFA;
+  cursor: pointer;
+}
+.member-icon-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+}
+  
+.idle-icon {
+  opacity: 1;
+}
+.hover-icon {
+  opacity: 0;
+}
+.active-icon {
+ opacity: 0;
+}
+.member-icon:hover {
+  animation: hop 0.6s cubic-bezier(0.245, 0.325, 0.510, 1.0);
+}
+.member-icon:hover .idle-icon {
+ opacity: 0;
+}
+.member-icon:hover .hover-icon {
+ opacity: 1;
+}
+.member-name {
+  position: relative;
+  top: -48px;
+  width: 0;
+  padding: 10px 0px;
+  margin: 0 auto;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  background-color: #041017;
+  color: white;
+  opacity: 0;
+  font-family: 'Abel', sans-serif;
+  text-align: center;
+  transition: none;
+  box-sizing: border-box;
+  z-index: 10;
+}
+.member-name:before {
+			content: "";
+			position: absolute;
+			left: 50%;
+			bottom: -10px;
+			width: 12px;
+			height: 12px;
+			background-color: inherit;
+			box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+			transform: rotate(45deg) translateX(-50%);
+			z-index: 99;
+}
+.member-icon2:hover .member-name2 {
   width: 100%;
   padding: 10px 20px;
   opacity: 1;

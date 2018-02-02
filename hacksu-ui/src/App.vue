@@ -19,24 +19,37 @@
       </a>
       <a @click="loginShown = !loginShown" class="bannerItem">
         <div class="subMenu" v-if="loginShown">
-          <a>Login</a>
+          <a @click="loginModule = !loginModule">Login </a>
           <a>Register</a>
         </div>
+          
         Login/Register
       </a>
     </ul>
     </header>
-
+    
+    <div id="loginStuff" v-if="loginModule">
+      <div id="dimmer"> 
+      </div> 
+        <loginModule>
+        </loginModule> 
+    </div>
+    
     <router-view/>
   </div>
 </template>
 
 <script>
+import loginModule from './components/Login';
 export default {
   name: 'app',
+  components: {
+    loginModule
+  },
   data() {
     return {
       loginShown: false,
+      loginModule: false,
     }
   }
 };
@@ -71,8 +84,20 @@ header li {
   margin-right: 0px;
   right: 0px;
 
-
 }
+  #loginModule{
+    top: 120px;
+    height: 400px;
+    width: 500px;
+    background-color: #4683FF;
+    position: absolute;
+    display: static;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    margin: auto;
+    
+  }
 .bannerItem {
   color: white;
   transition-duration: .3s;
@@ -128,4 +153,14 @@ header li {
   margin-top: 60px;
   
 }
+  #dimmer {
+    position: absolute;
+    width: 1000%;
+    height: 100%;
+    opacity: 0.5;
+    background-color:#000;
+    z-index: 20;
+    left: 0;
+  }
+  
 </style>
