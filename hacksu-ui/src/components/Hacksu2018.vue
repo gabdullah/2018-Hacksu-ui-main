@@ -145,9 +145,9 @@ export default {
     left:0;
     top:0;
     padding-top:50px;
-  background-color: #041017;
+  background: #041017;
   font-family: 'Abel', sans-serif;
-  color: white;
+  color:white;
 }
 #start-container {
   min-height: 80vh;
