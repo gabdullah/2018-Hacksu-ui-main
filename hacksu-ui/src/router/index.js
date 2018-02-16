@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import Hacksu2018 from '@/components/Hacksu2018';
 import Login from '@/components/Login';
 import FAQ from '@/components/FAQ';
-import Contact from '@/components/Contact'; 
 Vue.use(Router);
 
 export default new Router({
@@ -23,11 +22,6 @@ export default new Router({
       path: '/FAQ',
       name: 'FAQ',
       component: FAQ,
-    },
-     {
-      path: '/Contact',
-      name: 'Contact',
-      component: Contact,
     },
   ],
 });
