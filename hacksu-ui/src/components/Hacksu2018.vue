@@ -139,7 +139,7 @@ export default {
   box-sizing: border-box;
 }
 
-# maincontainer {
+#maincontainer {
     position:absolute;
     width:100%;
     left:0;

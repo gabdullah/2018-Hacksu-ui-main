@@ -8,9 +8,9 @@
       <a href="https://khe.io" class="bannerItem" target="_blank">
         Kent Hack Enough
       </a>
-      <router-link to="Contact" class = "bannerItem"> 
-        Contact
-      </router-link>
+      <a href="#" class="bannerItem">
+        Contact (Not implemented)
+      </a>
       <a href="#" class="bannerItem">
         Constitution (Not implemented)
       </a>
