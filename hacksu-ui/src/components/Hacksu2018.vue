@@ -24,11 +24,11 @@
     <p>Hacksu is a student organization at Kent State University focused on learning and utilizing contemporary technologies. We are a very diverse community, spanning multiple majors from Fashion Design to Zoology and are open to students of any skill level. Everyone is welcome!</p>
 
     <div class= "member-container">
-    <div v-for="name in names" class='member-icon'>
+    <!--<div v-for="name in names" class='member-icon'>
         <div class="member-name">
           {{name}}
         </div>
-      </div>
+      </div>-->
     
     <div class="member-icon">
         <div class="member-name">Baymax</div>
@@ -69,7 +69,8 @@
     <div class="text-container">
       <h2>Every Tuesday @ 7pm</h2>
       <h3>Honors College, room 060</h3>
-      <p><a href="#" class="white-link">Need directions?</a></p>
+      <p class="white-link" @click="showMap = !showMap">Need directions?</p>
+      <iframe v-if="showMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.303743944166!2d-81.34756828434958!3d41.1497230186572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8831252c1fee9a43%3A0x65bd231d74579eb9!2sKent+State+University+Honors+College!5e0!3m2!1sen!2sus!4v1519874147929" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
     <div class="class-container flex-col">
       <ul class="meeting-list">
@@ -125,6 +126,7 @@ export default {
   data() {
     return {
       names: ['elizabeth', 'alex', 'sami'],
+      showMap: false,
     };
   },
   methods: {
@@ -257,7 +259,7 @@ section {
   top: 50%;
   left: 50%;
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 100%;
   transform: translate(-50%, -50%);
 }
@@ -315,83 +317,7 @@ section {
   opacity: 1;
   transition: width 0.2s ease-out, padding 0.2s ease-out;
 }
-  
-  .member-icon {
-  position: relative;
-  width: 25vw;
-  height: 25vw;
-  min-width: 90px;
-  min-height: 90px;
-  max-width: 150px;
-  max-height: 150px;
-  margin: 4px;
-  border-radius: 100%;
-  background-color: #FAFAFA;
-  cursor: pointer;
-}
-.member-icon-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: auto;
-  border-radius: 100%;
-  transform: translate(-50%, -50%);
-}
-  
-.idle-icon {
-  opacity: 1;
-}
-.hover-icon {
-  opacity: 0;
-}
-.active-icon {
- opacity: 0;
-}
-.member-icon:hover {
-  animation: hop 0.6s cubic-bezier(0.245, 0.325, 0.510, 1.0);
-}
-.member-icon:hover .idle-icon {
- opacity: 0;
-}
-.member-icon:hover .hover-icon {
- opacity: 1;
-}
-.member-name {
-  position: relative;
-  top: -48px;
-  width: 0;
-  padding: 10px 0px;
-  margin: 0 auto;
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
-  background-color: #041017;
-  color: white;
-  opacity: 0;
-  font-family: 'Abel', sans-serif;
-  text-align: center;
-  transition: none;
-  box-sizing: border-box;
-  z-index: 10;
-}
-.member-name:before {
-			content: "";
-			position: absolute;
-			left: 50%;
-			bottom: -10px;
-			width: 12px;
-			height: 12px;
-			background-color: inherit;
-			box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
-			transform: rotate(45deg) translateX(-50%);
-			z-index: 99;
-}
-.member-icon2:hover .member-name2 {
-  width: 100%;
-  padding: 10px 20px;
-  opacity: 1;
-  transition: width 0.2s ease-out, padding 0.2s ease-out;
-}
+
 header {
   display: flex;
   justify-content: flex-end;
@@ -496,6 +422,11 @@ footer {
   height: auto;
   fill: white;
 }
+
+.white-link{
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   #start-container {
     justify-content: flex-start;
