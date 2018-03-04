@@ -19,30 +19,49 @@
     <!-- NEED TO DO -->
     <!--<input type="checkbox" checked="checked"> Remember Me 
     <br>-->
-    <button @click="signUp()">
-      Login/Register
-    </button>
-    <br>
-    <button type="button" class="cancelbtn" 
-     @click="$parent.loginModule = false"> 
-      Cancel
-    </button>
-    <br><br>
-    <span class="psw">
-      <a href="#" @click="forgotPass = !forgotPass" style="color:white;"> 
-        Forgot Password?
-      </a>
-    </span>
-    <div v-if="forgotPass">
-      <input type="text" placeholder="Enter Email" 
-      v-model="reset">
-      <button @click="sendEmail()">
-        Reset
+    <!-- If account exists -->
+    <div v-if="exist">
+      <button @click="signIn()">
+        Login
       </button>
+      <br>
+      <button @click="$parent.loginModule = false"> 
+        Cancel
+      </button>
+      <br><br>
+      <span @click="exist = false" class="psw">
+        Need an account?
+      </span>
+      <br><br>
+      <span class="psw" @click="forgotPass = !forgotPass"> 
+          Forgot Password?
+      </span>
+      <!-- If need password reset -->
+      <div v-if="forgotPass">
+        <input type="text" placeholder="Enter Email" 
+        v-model="reset">
+        <button @click="sendEmail()">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- If account doesn't exist -->
+    <div v-else>
+      <button @click="signUp()">
+        Register
+      </button>
+      <br>
+      <button @click="$parent.loginModule = false">
+        Cancel
+      </button>
+      <br><br>
+      <span @click="exist = true" class="psw">
+        Have an account?
+      </span>      
     </div>
     <br>
     <div style="color: white;">
-      {{ resetMessage }}
       {{ errorMessage }}
     </div>
   </div>
@@ -60,10 +79,22 @@ export default {
       errorMessage: '',
       forgotPass: false,
       reset: '',
-      resetMessage: '',
+      exist: true,
     }
   },
   methods: {
+    signIn() {
+      var vm = this;
+      firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
+      .then((user) => {
+        console.log('signed in');
+        this.$parent.loginModule = false;
+        this.$parent.loggedIn = true;
+      }).catch((error) => {
+        vm.errorMessage = error.message;
+      })
+    },
+
     signUp() {
       var vm = this;
       firebase.auth().createUserWithEmailAndPassword(this.uname, this.psw)
@@ -81,11 +112,11 @@ export default {
       auth.sendPasswordResetEmail(this.reset)
       .then(() => {
         console.log('email sent');
-        vm.resetMessage = 'A confirmation email has been sent!';
+        vm.errorMessage = 'A confirmation email has been sent!';
         vm.forgotPass = false;
        }).catch((error) => {
         console.log(error.message);
-        vm.resetMessage = error.message;
+        vm.errorMessage = error.message;
       })
        vm.reset = '';
     },
@@ -120,10 +151,11 @@ export default {
     width: 27%;
   }
   
-  span.psw {
+  .psw {
     /*float: right;*/
     padding-top: 16px;
     color: white;
+    cursor: pointer;
   }
   #loginModule{
     top: 120px;
