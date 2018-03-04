@@ -24,7 +24,7 @@ export default new Router({
       name: 'FAQ',
       component: FAQ,
     },
-     {
+    {
       path: '/Contact',
       name: 'Contact',
       component: Contact,

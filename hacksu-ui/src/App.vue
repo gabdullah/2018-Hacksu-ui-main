@@ -11,18 +11,13 @@
       <router-link to="Contact" class = "bannerItem"> 
           Contact
       </router-link>
-      <a href="#" class="bannerItem">
-        Constitution (Not implemented)
+      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem">
+        Constitution
       </a>
       <a href="FAQ" class="bannerItem">
         FAQ
       </a>
       <a  @click="loginModule = !loginModule" class="bannerItem">
-        <div class="subMenu" v-if="loginShown">
-          <a>Login </a>
-          <a>Register</a>
-        </div>
-          
         Login/Register
       </a>
     </ul>
@@ -53,7 +48,6 @@ export default {
   },
   data() {
     return {
-      loginShown: false,
       loginModule: false,
       db: null,
     }
@@ -73,6 +67,10 @@ export default {
 
 <style>
   
+a {
+  text-decoration: none;
+}
+
 header {
   display: flex;
   justify-content: flex-end;
