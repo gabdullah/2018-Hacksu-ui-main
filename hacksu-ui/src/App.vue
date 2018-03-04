@@ -17,9 +17,9 @@
       <a href="FAQ" class="bannerItem">
         FAQ
       </a>
-      <a @click="loginShown = !loginShown" class="bannerItem">
+      <a  @click="loginModule = !loginModule" class="bannerItem">
         <div class="subMenu" v-if="loginShown">
-          <a @click="loginModule = !loginModule">Login </a>
+          <a>Login </a>
           <a>Register</a>
         </div>
           
@@ -29,10 +29,10 @@
     </header>
     
     <div id="loginStuff" v-if="loginModule">
-      <div id="dimmer"> 
+      <div id="dimmer" @click="loginModule = false"> 
       </div> 
-        <loginModule>
-        </loginModule> 
+        <login-module>
+        </login-module> 
     </div>
     
     <router-view/>
@@ -41,6 +41,11 @@
 
 <script>
 import loginModule from './components/Login';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
+import { config } from './config';
+
 export default {
   name: 'app',
   components: {
@@ -50,7 +55,18 @@ export default {
     return {
       loginShown: false,
       loginModule: false,
+      db: null,
     }
+  },
+
+  mounted() {
+    var vm = this;
+    firebase.initializeApp(config);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user){
+        vm.db = firebase.firestore();
+      }
+    })
   }
 };
 </script>
@@ -85,19 +101,7 @@ header li {
   right: 0px;
 
 }
-  #loginModule{
-    top: 120px;
-    height: 400px;
-    width: 500px;
-    background-color: #4683FF;
-    position: absolute;
-    display: static;
-    left: 0;
-    right: 0;
-    z-index: 40;
-    margin: auto;
-    
-  }
+  
 .bannerItem {
   color: white;
   transition-duration: .3s;
@@ -154,7 +158,7 @@ header li {
   
 }
   #dimmer {
-    position: absolute;
+    position: fixed;
     width: 1000%;
     height: 100%;
     opacity: 0.5;
