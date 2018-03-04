@@ -2,27 +2,27 @@
   <div id="app">
     <header>
     <ul id="banner">
-      <a href="/" class="bannerItem">
+      <router-link to="/" class="bannerItem">
         Home
-      </a>
+      </router-link>
       <a href="https://khe.io" class="bannerItem" target="_blank">
         Kent Hack Enough
       </a>
       <router-link to="Contact" class = "bannerItem"> 
-          Contact
+        Contact
       </router-link>
       <a href="https://www.usconstitution.net/const.pdf" class="bannerItem">
         Constitution
       </a>
-      <a href="FAQ" class="bannerItem">
+      <router-link to="FAQ" class="bannerItem">
         FAQ
-      </a>
+      </router-link>
       <a  v-if="!loggedIn" @click="loginModule = !loginModule" class="bannerItem">
         Login/Register
       </a>
-      <a v-else class="bannerItem profileItem" href="Profile">
+      <router-link v-else class="bannerItem profileItem" to="Profile">
         <img class="member-image" src="http://placehold.it/100x100.png">
-      </a>
+      </router-link>
     </ul>
     </header>
     
@@ -64,7 +64,7 @@ export default {
       if (user){
         vm.db = firebase.firestore();
       }
-    })
+    });
   }
 };
 </script>
