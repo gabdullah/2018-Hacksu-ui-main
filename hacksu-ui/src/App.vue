@@ -11,28 +11,26 @@
       <router-link to="Contact" class = "bannerItem"> 
           Contact
       </router-link>
-      <a href="#" class="bannerItem">
-        Constitution (Not implemented)
+      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem">
+        Constitution
       </a>
       <a href="FAQ" class="bannerItem">
         FAQ
       </a>
-      <a @click="loginShown = !loginShown" class="bannerItem">
-        <div class="subMenu" v-if="loginShown">
-          <a @click="loginModule = !loginModule">Login </a>
-          <a>Register</a>
-        </div>
-          
+      <a  v-if="!loggedIn" @click="loginModule = !loginModule" class="bannerItem">
         Login/Register
+      </a>
+      <a v-else class="bannerItem profileItem" href="Profile">
+        <img class="member-image" src="http://placehold.it/100x100.png">
       </a>
     </ul>
     </header>
     
     <div id="loginStuff" v-if="loginModule">
-      <div id="dimmer"> 
+      <div id="dimmer" @click="loginModule = false"> 
       </div> 
-        <loginModule>
-        </loginModule> 
+        <login-module>
+        </login-module> 
     </div>
     
     <router-view/>
@@ -41,6 +39,11 @@
 
 <script>
 import loginModule from './components/Login';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
+import { config } from './config';
+
 export default {
   name: 'app',
   components: {
@@ -48,19 +51,33 @@ export default {
   },
   data() {
     return {
-      loginShown: false,
       loginModule: false,
+      loggedIn: false,
+      db: null,
     }
+  },
+
+  mounted() {
+    var vm = this;
+    firebase.initializeApp(config);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user){
+        vm.db = firebase.firestore();
+      }
+    })
   }
 };
 </script>
 
 <style>
   
+a {
+  text-decoration: none;
+}
+
 header {
   display: flex;
   justify-content: flex-end;
-
   width: 100%;
   max-width: 1440px;
 }
@@ -68,7 +85,6 @@ header {
 header li {
   display: inline-block;
   padding: 20px 20px;
-
   font-family: 'Abel', sans-serif;
 }
   
@@ -85,65 +101,21 @@ header li {
   right: 0px;
 
 }
-  #loginModule{
-    top: 120px;
-    height: 400px;
-    width: 500px;
-    background-color: #4683FF;
-    position: absolute;
-    display: static;
-    left: 0;
-    right: 0;
-    z-index: 40;
-    margin: auto;
-    
-  }
+  
 .bannerItem {
   color: white;
   transition-duration: .3s;
-  height: 100%;
+  min-height: 100%;
   display: inline-block;
   padding: 20px 20px;
   cursor: pointer;
-
+  font-size: 16px;
+  height: 16px;
 }
 .bannerItem:hover {
   background: #4683FF;
-
 }
-  
-  .subMenu {
-    background: white;
-    color: black;
-    text-decoration: none;
-    position: absolute;
-    margin-top: 40px;
-    margin-left: -20px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,.3);
-    animation: slideOut .3s linear;
-    overflow: hidden;
-  }
-  
-  .subMenu a {
-    display: block;
-    padding: 10px;
-    border-bottom: solid 1px black;
-    min-width: 100px;
-    transition-duration: .3s;
-  }
-  .subMenu a:hover {
-    background: lightgray;
-  }
-  
-  @keyframes slideOut {
-    from {
-      max-height: 0px;
-    }
-    to {
-      max-height: 400px;
-    }
-  }
-  
+ 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -154,7 +126,7 @@ header li {
   
 }
   #dimmer {
-    position: absolute;
+    position: fixed;
     width: 1000%;
     height: 100%;
     opacity: 0.5;
@@ -163,4 +135,16 @@ header li {
     left: 0;
   }
   
+.member-image {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+}
+.profileItem {
+  min-width: 14px;
+}
+
 </style>

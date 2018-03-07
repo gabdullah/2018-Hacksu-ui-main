@@ -4,6 +4,7 @@ import Hacksu2018 from '@/components/Hacksu2018';
 import Login from '@/components/Login';
 import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact'; 
+import Profile from '@/components/Profile';
 Vue.use(Router);
 
 export default new Router({
@@ -24,10 +25,15 @@ export default new Router({
       name: 'FAQ',
       component: FAQ,
     },
-     {
+    {
       path: '/Contact',
       name: 'Contact',
       component: Contact,
+    },
+    {
+      path: '/Profile',
+      name: 'Profile',
+      component: Profile,
     },
   ],
 });

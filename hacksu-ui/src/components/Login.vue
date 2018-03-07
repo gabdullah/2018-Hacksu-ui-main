@@ -1,24 +1,127 @@
 /* eslint-disable /
 <template>
   <div id="loginModule">
-    <form>
-          <div class="loginModule">
-     <label><b>Username</b></label>
-     <input type ="text" placeholder="Enter Username" name="uname" required>
-     <label><b>Password</b></label>
-     <input type="password" placeholder="Enter Password" name="psw" required>
-            <button type="submit">Login</button>
-            <input type="checkbox" checked="checked"> Remember Me 
+   <label>
+    <b>
+      Email
+    </b>
+    </label>
+    <input type ="text" placeholder="Enter Email"
+      v-model="uname"
+      required>
+    <label>
+      <b>Password</b>
+    </label>
+    <input type="password" placeholder="Enter Password"
+      v-model="psw"
+      required>
+    <br>
+    <!-- NEED TO DO -->
+    <!--<input type="checkbox" checked="checked"> Remember Me 
+    <br>-->
+    <!-- If account exists -->
+    <div v-if="exist">
+      <button @click="signIn()">
+        Login
+      </button>
+      <br>
+      <button @click="$parent.loginModule = false"> 
+        Cancel
+      </button>
+      <br><br>
+      <span @click="exist = false" class="psw">
+        Need an account?
+      </span>
+      <br><br>
+      <span class="psw" @click="forgotPass = !forgotPass"> 
+          Forgot Password?
+      </span>
+      <!-- If need password reset -->
+      <div v-if="forgotPass">
+        <input type="text" placeholder="Enter Email" 
+        v-model="reset">
+        <button @click="sendEmail()">
+          Reset
+        </button>
       </div>
-      <div class="container" style="background-color :#f1f1f1">
-        <button type="button" class="cancelbtn"> Cancel</button>
-        <span class="psw"><a href="#"> Forgot Password?</a></span>
-        </div>
-    </form>
+    </div>
+
+    <!-- If account doesn't exist -->
+    <div v-else>
+      <button @click="signUp()">
+        Register
+      </button>
+      <br>
+      <button @click="$parent.loginModule = false">
+        Cancel
+      </button>
+      <br><br>
+      <span @click="exist = true" class="psw">
+        Have an account?
+      </span>      
+    </div>
+    <br>
+    <div style="color: white;">
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 
 <script>
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
+export default {
+  data() {
+    return {
+      uname: '',
+      psw: '',
+      errorMessage: '',
+      forgotPass: false,
+      reset: '',
+      exist: true,
+    }
+  },
+  methods: {
+    signIn() {
+      var vm = this;
+      firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
+      .then((user) => {
+        console.log('signed in');
+        this.$parent.loginModule = false;
+        this.$parent.loggedIn = true;
+      }).catch((error) => {
+        vm.errorMessage = error.message;
+      })
+    },
+
+    signUp() {
+      var vm = this;
+      firebase.auth().createUserWithEmailAndPassword(this.uname, this.psw)
+      .then((user) => {
+        console.log('success');
+      }).catch((error) => {
+        console.log(error.message);
+        vm.errorMessage = error.message;
+      })
+    },
+
+    sendEmail() {
+      var vm = this;
+      var auth = firebase.auth();
+      auth.sendPasswordResetEmail(this.reset)
+      .then(() => {
+        console.log('email sent');
+        vm.errorMessage = 'A confirmation email has been sent!';
+        vm.forgotPass = false;
+       }).catch((error) => {
+        console.log(error.message);
+        vm.errorMessage = error.message;
+      })
+       vm.reset = '';
+    },
+  },
+};
 
 </script>
 
@@ -31,14 +134,13 @@
     display: inline-block;
     border: 3px solid;
     box-sizing: border-box;
-    color:white;
+    
   }
   
   label{
     width: 100%;
-    
-    
   }
+
   button {
     background-color: orangered;
     color: white;
@@ -46,23 +148,30 @@
     margin: 8px 0;
     border: 3px black solid;
     cursor: pointer;
-    width: auto;
+    width: 27%;
   }
   
-  .cancelbtn {
-    width: 50%;
-    
-    background-color: #f44336;
-    
-  }
-  
-
-  
-  span.psw {
-    float: right;
+  .psw {
+    /*float: right;*/
     padding-top: 16px;
+    color: white;
+    cursor: pointer;
   }
-  
+  #loginModule{
+    top: 120px;
+    /*height: 400px;*/
+    min-height: 390px;
+    max-height: 1000px;
+    width: 500px;
+    background-color: #4683FF;
+    position: fixed;
+    display: static;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    margin: auto;
+    
+  }
 
   
 </style>
