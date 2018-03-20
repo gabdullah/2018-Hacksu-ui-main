@@ -24,13 +24,13 @@
     <p>Hacksu is a student organization at Kent State University focused on learning and utilizing contemporary technologies. We are a very diverse community, spanning multiple majors from Fashion Design to Zoology and are open to students of any skill level. Everyone is welcome!</p>
 
     <div class= "member-container">
-    <!--<div v-for="name in names" class='member-icon'>
+      <div v-for="name in names" class='member-icon'>
         <div class="member-name">
           {{name}}
         </div>
-      </div>-->
+      </div>
     
-    <div class="member-icon">
+    <!--<div class="member-icon">
         <div class="member-name">Baymax</div>
         <img class="member-icon-image idle-icon" src="https://i.pinimg.com/736x/87/58/a9/8758a924587757e72147c9810ff4b17c--big-hero--baymax.jpg" />
 
@@ -55,7 +55,7 @@
         <img class="member-icon-image idle-icon" src="https://nootrix.com/wp-content/uploads/2014/09/wall-eDisneyMovie-680x365_c.jpg" />
 
         <img class="member-icon-image hover-icon"  src="https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-12561-of3s1g_a2a6d857.jpeg" />
-      </div>
+      </div>-->
     </div>
       
       
@@ -121,19 +121,30 @@
 </template>
 
 <script>
-
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 export default {
   name: 'HelloWorld',
   data() {
     return {
       names: ['elizabeth', 'alex', 'sami'],
+      profiles: [],
       showMap: false,
     };
   },
   methods: {
 
   },
+  // mounted() {
+  //   var vm = this;
+  //   this.$parent.db.collection('users').get()
+  //     .then((users) => {
+  //       vm.profiles = users;
+  //     }).catch((error) => {
+  //       console.log("Error getting documents: ", error);
+  //     });
+  // },
 };
 </script>
 

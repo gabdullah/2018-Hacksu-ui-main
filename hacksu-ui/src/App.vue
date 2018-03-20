@@ -20,9 +20,11 @@
       <a  v-if="!loggedIn" @click="loginModule = !loginModule" class="bannerItem">
         Login/Register
       </a>
-      <router-link v-else class="bannerItem profileItem" to="Profile">
+      <!--<router-link v-else class="bannerItem profileItem" to="Profile">-->
+      <a v-else @click="loggedInModule = !loggedInModule" class="bannerItem profileItem">
         <img class="member-image" src="http://placehold.it/100x100.png">
-      </router-link>
+      </a>
+      <!--</router-link>-->
     </ul>
     </header>
     
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+import people from './components/Hacksu2018';
 import loginModule from './components/Login';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -47,14 +50,21 @@ import { config } from './config';
 export default {
   name: 'app',
   components: {
-    loginModule
+    loginModule,
+    people
   },
   data() {
     return {
       loginModule: false,
       loggedIn: false,
+      loggedInDropdown: false,
+      people: [],
       db: null,
     }
+  },
+
+  methods: {
+
   },
 
   mounted() {
@@ -65,6 +75,7 @@ export default {
         vm.db = firebase.firestore();
       }
     });
+
   }
 };
 </script>
