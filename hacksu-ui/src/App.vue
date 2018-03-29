@@ -11,7 +11,7 @@
       <router-link to="Contact" class = "bannerItem"> 
         Contact
       </router-link>
-      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem">
+      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem" target="blank_">
         Constitution
       </a>
       <router-link to="FAQ" class="bannerItem">
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import people from './components/Hacksu2018';
+import members from './components/Hacksu2018';
+import events from './components/Hacksu2018';
 import loginModule from './components/Login';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -51,14 +52,14 @@ export default {
   name: 'app',
   components: {
     loginModule,
-    people
   },
   data() {
     return {
       loginModule: false,
       loggedIn: false,
       loggedInDropdown: false,
-      people: [],
+      members: [],
+      events: [],
       db: null,
     }
   },
@@ -70,12 +71,30 @@ export default {
   mounted() {
     var vm = this;
     firebase.initializeApp(config);
+    vm.db = firebase.firestore();
     firebase.auth().onAuthStateChanged((user) => {
       if (user){
         vm.db = firebase.firestore();
       }
     });
-
+    vm.db.collection("users").get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        vm.members.push(doc.data());
+      });
+    });
+    var today = new Date();
+    var weekAgo = new Date(new Date().setDate(today.getDate()-7));
+    //console.log(today, "||", weekAgo, "||", today - (1000*60*60*24*7));
+    vm.db.collection("calendarEvents")
+    .where("date", ">=", weekAgo)
+    .orderBy("date")
+    .limit(4).get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        vm.events.push(doc.data());
+      });
+    });
   }
 };
 </script>
