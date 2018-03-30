@@ -85,7 +85,6 @@ export default {
     });
     var today = new Date();
     var weekAgo = new Date(new Date().setDate(today.getDate()-7));
-    //console.log(today, "||", weekAgo, "||", today - (1000*60*60*24*7));
     vm.db.collection("calendarEvents")
     .where("date", ">=", weekAgo)
     .orderBy("date")

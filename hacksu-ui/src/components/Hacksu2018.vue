@@ -71,21 +71,6 @@
       </div>
       <div class="class-container flex-col" id="events">
         <ul class="meeting-list">
-        <!--<li>
-          <div class="header">Web Basics, ExpressJS</div>
-          <div class="content">
-            <p>On the beginner side, we'll be learning the basics of web development - making websites! We will mostly be focusing on CSS and HTML. Make sure to bring a laptop! We will also be setting up Github accounts for those who don't have them.</p>
-            <br>
-            <p>On the advanced side, Isaac will be talking about Express.js, a Javascript framework for creating APIs!</p>
-
-            </div>
-        </li>
-        <li>
-          <div class="header">Web Basics, ExpressJS</div>
-        </li>
-        <li>
-          <div class="header">Web Basics, ExpressJS</div>
-        </li>-->
         <div v-for="event in $parent.events">
           <li>
             <div class="header">{{event.title}}</div>
@@ -133,22 +118,13 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      names: ['elizabeth', 'alex', 'sami'],
+      //names: ['elizabeth', 'alex', 'sami'],
       showMap: false,
     };
   },
   methods: {
 
   },
-  // mounted() {
-  //   var vm = this;
-  //   this.$parent.db.collection('users').get()
-  //     .then((users) => {
-  //       vm.profiles = users;
-  //     }).catch((error) => {
-  //       console.log("Error getting documents: ", error);
-  //     });
-  // },
 };
 </script>
 
@@ -159,11 +135,11 @@ export default {
 }
 
 #maincontainer {
-    position:absolute;
-    width:100%;
-    left:0;
-    top:0;
-    padding-top:50px;
+  position:absolute;
+  width:100%;
+  left:0;
+  top:0;
+  padding-top:50px;
   background: #041017;
   font-family: 'Abel', sans-serif;
   color:white;
@@ -212,26 +188,26 @@ section {
   margin-bottom: 0.375em;
 }
 .meeting-list {
-    color: black;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-    border-radius: 10px;
-    margin: 0 15px;
+  color: black;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  border-radius: 10px;
+  margin: 0 15px;
 }
 .meeting-list li {
-    background: white;
-    border-bottom: 1px solid #ddd;
-    display: block;
-    min-height: 3rem;
-    line-height: 3rem;
-    cursor: pointer;
-    padding: 0 1rem;
-    list-style-type: none;
-    opacity: 1;
-    text-align: left;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: block;
+  min-height: 3rem;
+  line-height: 3rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  list-style-type: none;
+  opacity: 1;
+  text-align: left;
 }
 .content {
-    line-height: 1em;
-    padding-bottom: 1em;
+  line-height: 1em;
+  padding-bottom: 1em;
 }
 .half-container {
   width: 50%;
@@ -317,16 +293,16 @@ section {
   z-index: 10;
 }
 .member-name:before {
-			content: "";
-			position: absolute;
-			left: 50%;
-			bottom: -10px;
-			width: 12px;
-			height: 12px;
-			background-color: inherit;
-			box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
-			transform: rotate(45deg) translateX(-50%);
-			z-index: 99;
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 12px;
+  height: 12px;
+  background-color: inherit;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+  transform: rotate(45deg) translateX(-50%);
+  z-index: 99;
 }
 .member-icon:hover .member-name {
   width: 100%;
