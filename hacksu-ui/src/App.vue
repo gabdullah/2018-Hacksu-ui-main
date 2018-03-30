@@ -2,27 +2,29 @@
   <div id="app">
     <header>
     <ul id="banner">
-      <a href="/" class="bannerItem">
+      <router-link to="/" class="bannerItem">
         Home
-      </a>
+      </router-link>
       <a href="https://khe.io" class="bannerItem" target="_blank">
         Kent Hack Enough
       </a>
       <router-link to="Contact" class = "bannerItem"> 
-          Contact
+        Contact
       </router-link>
-      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem">
+      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem" target="blank_">
         Constitution
       </a>
-      <a href="FAQ" class="bannerItem">
+      <router-link to="FAQ" class="bannerItem">
         FAQ
-      </a>
+      </router-link>
       <a  v-if="!loggedIn" @click="loginModule = !loginModule" class="bannerItem">
         Login/Register
       </a>
-      <a v-else class="bannerItem profileItem" href="Profile">
+      <!--<router-link v-else class="bannerItem profileItem" to="Profile">-->
+      <a v-else @click="loggedInModule = !loggedInModule" class="bannerItem profileItem">
         <img class="member-image" src="http://placehold.it/100x100.png">
       </a>
+      <!--</router-link>-->
     </ul>
     </header>
     
@@ -38,6 +40,8 @@
 </template>
 
 <script>
+import members from './components/Hacksu2018';
+import events from './components/Hacksu2018';
 import loginModule from './components/Login';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -47,24 +51,50 @@ import { config } from './config';
 export default {
   name: 'app',
   components: {
-    loginModule
+    loginModule,
   },
   data() {
     return {
       loginModule: false,
       loggedIn: false,
+      loggedInDropdown: false,
+      members: [],
+      events: [],
       db: null,
     }
+  },
+
+  methods: {
+
   },
 
   mounted() {
     var vm = this;
     firebase.initializeApp(config);
+    vm.db = firebase.firestore();
     firebase.auth().onAuthStateChanged((user) => {
       if (user){
         vm.db = firebase.firestore();
       }
-    })
+    });
+    vm.db.collection("users").get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        vm.members.push(doc.data());
+      });
+    });
+    var today = new Date();
+    var weekAgo = new Date(new Date().setDate(today.getDate()-7));
+    //console.log(today, "||", weekAgo, "||", today - (1000*60*60*24*7));
+    vm.db.collection("calendarEvents")
+    .where("date", ">=", weekAgo)
+    .orderBy("date")
+    .limit(4).get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        vm.events.push(doc.data());
+      });
+    });
   }
 };
 </script>

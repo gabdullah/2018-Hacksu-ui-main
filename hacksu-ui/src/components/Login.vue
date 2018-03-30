@@ -1,6 +1,15 @@
 /* eslint-disable /
 <template>
   <div id="loginModule">
+    <div v-if="!exist">
+      <label>
+        <b>Name</b>
+      </label>
+      <input type="text" placeholder="Enter Name"
+      v-model="name"
+      required>
+      <br>
+    </div>
    <label>
     <b>
       Email
@@ -19,14 +28,10 @@
     <!-- NEED TO DO -->
     <!--<input type="checkbox" checked="checked"> Remember Me 
     <br>-->
-    <!-- If account exists -->
+    <!-- Account exists -->
     <div v-if="exist">
       <button @click="signIn()">
         Login
-      </button>
-      <br>
-      <button @click="$parent.loginModule = false"> 
-        Cancel
       </button>
       <br><br>
       <span @click="exist = false" class="psw">
@@ -36,7 +41,7 @@
       <span class="psw" @click="forgotPass = !forgotPass"> 
           Forgot Password?
       </span>
-      <!-- If need password reset -->
+      <!-- Password reset -->
       <div v-if="forgotPass">
         <input type="text" placeholder="Enter Email" 
         v-model="reset">
@@ -46,14 +51,10 @@
       </div>
     </div>
 
-    <!-- If account doesn't exist -->
+    <!-- Account doesn't exist -->
     <div v-else>
       <button @click="signUp()">
         Register
-      </button>
-      <br>
-      <button @click="$parent.loginModule = false">
-        Cancel
       </button>
       <br><br>
       <span @click="exist = true" class="psw">
@@ -74,6 +75,7 @@ import 'firebase/firestore';
 export default {
   data() {
     return {
+      name: '',
       uname: '',
       psw: '',
       errorMessage: '',
@@ -87,7 +89,7 @@ export default {
       var vm = this;
       firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
       .then((user) => {
-        console.log('signed in');
+        //console.log('signed in');
         this.$parent.loginModule = false;
         this.$parent.loggedIn = true;
       }).catch((error) => {
@@ -99,9 +101,22 @@ export default {
       var vm = this;
       firebase.auth().createUserWithEmailAndPassword(this.uname, this.psw)
       .then((user) => {
-        console.log('success');
+        //console.log('success');
+        firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
+        .then((user) => {
+          var userId = firebase.auth().currentUser.uid;
+          this.$parent.db.collection('users').doc(userId).set({
+            email: vm.uname,
+            name: vm.name,
+            profilePicture: "http://placehold.it/100x100.png",
+            role: "member"
+          }).then(() => {
+            this.$parent.loginModule = false;
+            this.$parent.loggedIn = true;
+          });
+        });
       }).catch((error) => {
-        console.log(error.message);
+        //console.log(error.message);
         vm.errorMessage = error.message;
       })
     },
@@ -111,11 +126,10 @@ export default {
       var auth = firebase.auth();
       auth.sendPasswordResetEmail(this.reset)
       .then(() => {
-        console.log('email sent');
+        //console.log('email sent');
         vm.errorMessage = 'A confirmation email has been sent!';
         vm.forgotPass = false;
        }).catch((error) => {
-        console.log(error.message);
         vm.errorMessage = error.message;
       })
        vm.reset = '';
@@ -160,7 +174,7 @@ export default {
   #loginModule{
     top: 120px;
     /*height: 400px;*/
-    min-height: 390px;
+    min-height: 300px;
     max-height: 1000px;
     width: 500px;
     background-color: #4683FF;
