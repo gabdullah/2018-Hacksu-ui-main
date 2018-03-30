@@ -77,12 +77,15 @@ export default {
         vm.db = firebase.firestore();
       }
     });
-    vm.db.collection("users").get()
+
+    vm.db.collection("users")
+    .limit(10).get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         vm.members.push(doc.data());
       });
     });
+
     var today = new Date();
     var weekAgo = new Date(new Date().setDate(today.getDate()-7));
     vm.db.collection("calendarEvents")
