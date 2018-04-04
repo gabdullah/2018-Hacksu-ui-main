@@ -21,9 +21,18 @@
         Login/Register
       </a>
       <!--<router-link v-else class="bannerItem profileItem" to="Profile">-->
-      <a v-else @click="loggedInModule = !loggedInModule" class="bannerItem profileItem">
-        <img class="member-image" src="http://placehold.it/100x100.png">
+      <a v-else-if="user != null && user != undefined" 
+         @click="userMenu = !userMenu" 
+         class="bannerItem profileItem">
+        {{user.name}}
+        <img class="member-image" v-bind:src="user.profilePicture">
       </a>
+      <div id="userMenu" v-if="userMenu">
+        <div class="userMenuOpt"
+             @click="logout()">
+          Log Out
+        </div>
+      </div>
       <!--</router-link>-->
     </ul>
     </header>
@@ -34,6 +43,8 @@
         <login-module>
         </login-module> 
     </div>
+    
+    
     
     <router-view/>
   </div>
@@ -61,25 +72,42 @@ export default {
       members: [],
       events: [],
       db: null,
+      
+      user: null,
+      userMenu: false
     }
   },
 
   methods: {
-
+    loadUser(id) {
+      var vm = this;
+      this.db.collection('users').doc(id).get()
+      .then((doc) => {
+        vm.user = doc.data();
+        vm.user.id = doc.id;
+      }).catch((err) => {
+        console.error("There was a problem getting the user: ", err);
+      })
+    },
+    logout() {
+      firebase.auth().signOut();
+      this.user = null;
+      this.loggedIn = false;
+      this.userMenu = false;
+    }
   },
 
   mounted() {
     var vm = this;
     firebase.initializeApp(config);
-    vm.db = firebase.firestore();
-    console.log("here's config: ", config);
-    
+    vm.db = firebase.firestore();    
     
     firebase.auth().onAuthStateChanged((user) => {
       // This if statement will be true if the user is logged in
       // when the page loads! :) 
       if (user){
         vm.db = firebase.firestore();
+        vm.loadUser(user.uid);
         this.loggedIn = true;
         this.loginModule = false;
       }
@@ -182,7 +210,21 @@ header li {
   border-radius: 100%;
 }
 .profileItem {
-  min-width: 14px;
+  padding-right: 60px;
+  
 }
+  
+  #userMenu {
+    position: fixed;
+    top: 50px;
+    width: 200px;
+    min-height: 100px;
+    background: black;
+    color: white;
+  }
+  .userMenuOpt:hover {
+    cursor: pointer;
+    box-shadow: white 0px 0px 5px;
+  }
 
 </style>
