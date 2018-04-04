@@ -72,11 +72,19 @@ export default {
     var vm = this;
     firebase.initializeApp(config);
     vm.db = firebase.firestore();
+    console.log("here's config: ", config);
+    
+    
     firebase.auth().onAuthStateChanged((user) => {
+      // This if statement will be true if the user is logged in
+      // when the page loads! :) 
       if (user){
         vm.db = firebase.firestore();
+        this.loggedIn = true;
+        this.loginModule = false;
       }
-    });
+    })
+    
     vm.db.collection("users").get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
