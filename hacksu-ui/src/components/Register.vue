@@ -9,7 +9,8 @@
     <input type="password" v-model="psw">
     
     <div>Confirm Password:</div>
-    <input type="password" v-model="psw2">
+    <input type="password" v-model="psw2"
+           @keyup.enter="signUp()">
     
     <div class="flex-container">
       <span style="font-size: 15px;cursor:pointer;"
@@ -58,22 +59,31 @@ export default {
     },
 
     signUp() {
+      
+      if (this.psw != this.psw2) {
+        this.errorMessage = "Those passwords don't match";
+        return;
+      }
+      
       var vm = this;
+      // Logging in with Firebase authentication
       firebase.auth().createUserWithEmailAndPassword(this.email, this.psw)
       .then((user) => {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.psw)
-        .then((user) => {
-          var userId = firebase.auth().currentUser.uid;
-          this.$parent.db.collection('users').doc(userId).set({
-            email: vm.email,
-            name: vm.name,
-            profilePicture: "http://placehold.it/100x100.png",
-            role: "member"
-          }).then(() => {
-            this.$parent.loginModule = false;
-            this.$parent.loggedIn = true;
-          });
+        
+          
+        var userId = firebase.auth().currentUser.uid;
+        this.$parent.db.collection('users').doc(userId).set({
+          email: vm.email,
+          name: vm.name,
+          profilePicture: "http://placehold.it/100x100.png",
+          role: "member"
+        }).then(() => {
+          this.$parent.popup = '';
+          this.$parent.loggedIn = true;
+        }).catch((err) => {
+          vm.errorMessage = err.message;
         });
+        
       }).catch((error) => {
         vm.errorMessage = error.message;
       })
@@ -117,7 +127,7 @@ export default {
     
   }
   input[type=text]:focus, input[type=password]:focus {
-    border-bottom: 2px solid var(--purple);
+    border-bottom: 2px solid var(--orange);
   }
   
   

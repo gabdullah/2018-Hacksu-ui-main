@@ -7,7 +7,8 @@
     <input type="text" v-model="email">
     
     <div>Password:</div>
-    <input type="password" v-model="psw">
+    <input type="password" v-model="psw"
+           @keyup.enter="signIn()">
     
     <div class="flex-container">
       <span style="font-size: 15px;cursor:pointer;"
@@ -47,35 +48,12 @@ export default {
       var vm = this;
       firebase.auth().signInWithEmailAndPassword(this.email, this.psw)
       .then((user) => {
-        this.$parent.loginModule = false;
+        this.$parent.popup = '';
         this.$parent.loggedIn = true;
       }).catch((error) => {
         vm.errorMessage = error.message;
       })
     },
-
-    signUp() {
-      var vm = this;
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.psw)
-      .then((user) => {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.psw)
-        .then((user) => {
-          var userId = firebase.auth().currentUser.uid;
-          this.$parent.db.collection('users').doc(userId).set({
-            email: vm.email,
-            name: vm.name,
-            profilePicture: "http://placehold.it/100x100.png",
-            role: "member"
-          }).then(() => {
-            this.$parent.loginModule = false;
-            this.$parent.loggedIn = true;
-          });
-        });
-      }).catch((error) => {
-        vm.errorMessage = error.message;
-      })
-    },
-
     sendEmail() {
       var vm = this;
       var auth = firebase.auth();
@@ -114,7 +92,7 @@ export default {
     
   }
   input[type=text]:focus, input[type=password]:focus {
-    border-bottom: 2px solid var(--purple);
+    border-bottom: 2px solid var(--orange);
   }
   
   

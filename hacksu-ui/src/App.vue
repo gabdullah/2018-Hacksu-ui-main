@@ -2,6 +2,11 @@
   <div id="app">
     <header>
     <ul id="banner">
+      <div class="bannerItem flex-container"
+           id="menu-toggler">
+        
+        <span>Menu</span>
+      </div>
       <router-link to="/" class="bannerItem">
         Home
       </router-link>
@@ -17,7 +22,7 @@
       <router-link to="FAQ" class="bannerItem">
         FAQ
       </router-link>
-      <a  v-if="!loggedIn" @click="popup = 'register'" class="bannerItem">
+      <a  v-if="!loggedIn" @click="loginPopup()" class="bannerItem">
         Login/Register
       </a>
       <!--<router-link v-else class="bannerItem profileItem" to="Profile">-->
@@ -102,6 +107,13 @@ export default {
       this.user = null;
       this.loggedIn = false;
       this.userMenu = false;
+    },
+    loginPopup() {
+      if (this.popup == 'login' || this.popup == 'register') {
+        this.popup = '';
+      } else {
+        this.popup = 'register';
+      }
     }
   },
 
@@ -150,13 +162,16 @@ export default {
   */
   
 :root {
+/*  You can use these anywhere in the app like this: var(--blue);         */
   --bg-black: #041017;
   --blue: #5284F7;
   --green: #35c982;
   --purple: #6850D1;
+  --orange: #e26b4a;
   
   --green-blue-gradient: linear-gradient(to top left, #35c982, #4683FF);
   --blue-purple-gradient: linear-gradient(to top left, var(--blue), var(--purple));
+  
 }
   
 a {
@@ -187,8 +202,26 @@ header li {
   top: 0px;
   margin-right: 0px;
   right: 0px;
-
 }
+  #menu-toggler {
+    display: none;
+  }
+  
+  
+  @media only screen and (max-width: 750px) {
+    #banner {
+      display: flex;
+      flex-direction: column;
+      max-height: 60px;
+      overflow-y: hidden;
+      justify-content: flex-start;
+    }
+    #menu-toggler {
+      display: block;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
   
 .bannerItem {
   color: white;
@@ -203,6 +236,8 @@ header li {
 .bannerItem:hover {
   background: #4683FF;
 }
+  
+  
  
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
