@@ -138,6 +138,19 @@ export default {
 
 <style>
   
+/*  WARNING: These are global styles! Anything you change here will affect the whole app
+  */
+  
+:root {
+  --bg-black: #041017;
+  --blue: #5284F7;
+  --green: #35c982;
+  --purple: #6850D1;
+  
+  --green-blue-gradient: linear-gradient(to top left, #35c982, #4683FF);
+  --blue-purple-gradient: linear-gradient(to top left, var(--blue), var(--purple));
+}
+  
 a {
   text-decoration: none;
 }
@@ -158,7 +171,7 @@ header li {
 #banner {
   width: 100%;
   position: fixed;
-  background: #041017;
+  background: var(--bg-black);
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
@@ -200,6 +213,7 @@ header li {
     background-color:#000;
     z-index: 20;
     left: 0;
+    top: 0;
   }
   
 .member-image {
@@ -214,6 +228,13 @@ header li {
   padding-right: 60px;
   
 }
+  
+  .flex-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+  }
   
   #userMenu {
     position: fixed;

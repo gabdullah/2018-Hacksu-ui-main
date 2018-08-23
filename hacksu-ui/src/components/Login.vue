@@ -1,67 +1,22 @@
 /* eslint-disable /
 <template>
   <div id="loginModule">
-    <div v-if="!exist">
-      <label>
-        <b>Name</b>
-      </label>
-      <input type="text" placeholder="Enter Name"
-      v-model="name"
-      required>
-      <br>
-    </div>
-   <label>
-    <b>
-      Email
-    </b>
-    </label>
-    <input type ="text" placeholder="Enter Email"
-      v-model="uname"
-      required>
-    <label>
-      <b>Password</b>
-    </label>
-    <input type="password" placeholder="Enter Password"
-      v-model="psw"
-      required>
-    <br>
-    <!-- NEED TO DO -->
-    <!--<input type="checkbox" checked="checked"> Remember Me 
-    <br>-->
-    <!-- Account exists -->
-    <div v-if="exist">
+    <h1>Log in</h1>
+    
+    <div>Email:</div>
+    <input type="text" v-model="email">
+    
+    <div>Password:</div>
+    <input type="password" v-model="psw">
+    
+    <div class="flex-container">
+      <span style="font-size: 15px;cursor:pointer;">No account? Click here!</span>
+  
       <button @click="signIn()">
-        Login
+        Log me in!
       </button>
-      <br><br>
-      <span @click="exist = false" class="psw">
-        Need an account?
-      </span>
-      <br><br>
-      <span class="psw" @click="forgotPass = !forgotPass"> 
-          Forgot Password?
-      </span>
-      <!-- Password reset -->
-      <div v-if="forgotPass">
-        <input type="text" placeholder="Enter Email" 
-        v-model="reset">
-        <button @click="sendEmail()">
-          Reset
-        </button>
-      </div>
     </div>
-
-    <!-- Account doesn't exist -->
-    <div v-else>
-      <button @click="signUp()">
-        Register
-      </button>
-      <br><br>
-      <span @click="exist = true" class="psw">
-        Have an account?
-      </span>      
-    </div>
-    <br>
+    
     <div style="color: white;">
       {{ errorMessage }}
     </div>
@@ -76,7 +31,7 @@ export default {
   data() {
     return {
       name: '',
-      uname: '',
+      email: '',
       psw: '',
       errorMessage: '',
       forgotPass: false,
@@ -87,7 +42,7 @@ export default {
   methods: {
     signIn() {
       var vm = this;
-      firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
+      firebase.auth().signInWithEmailAndPassword(this.email, this.psw)
       .then((user) => {
         this.$parent.loginModule = false;
         this.$parent.loggedIn = true;
@@ -98,13 +53,13 @@ export default {
 
     signUp() {
       var vm = this;
-      firebase.auth().createUserWithEmailAndPassword(this.uname, this.psw)
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.psw)
       .then((user) => {
-        firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
+        firebase.auth().signInWithEmailAndPassword(this.email, this.psw)
         .then((user) => {
           var userId = firebase.auth().currentUser.uid;
           this.$parent.db.collection('users').doc(userId).set({
-            email: vm.uname,
+            email: vm.email,
             name: vm.name,
             profilePicture: "http://placehold.it/100x100.png",
             role: "member"
@@ -139,24 +94,49 @@ export default {
 <style scoped>
   input[type=text], input[type=password] {
     width: 75%;
-    padding: 15px 20px;
-    margin: 20px 0;
+    padding: 0px 20px 15px 20px;
+    margin-top: 20px;
+    display: block;
+    
+    border: none;
+    margin-bottom: 13px;
+    border-bottom: 2px solid white;
+    transition-duration: .4s;
+
     display: inline-block;
-    border: 3px solid;
     box-sizing: border-box;
+    background: none;
+    color: white;
+    font-size: 18px;
+/*    outline: none;*/
     
   }
+  input[type=text]::after {
+    content: '';
+    display: block; 
+    width: 20px;
+    height: 20px;
+    background: white;
+    z-index: 10000;
+/*
+    border-bottom: 5px solid white;
+    margin-bottom: 10px;
+*/
+  }
+  
   
   label{
     width: 100%;
   }
 
   button {
-    background-color: orangered;
-    color: white;
+    background-color: var(--green);
+    color: black;
     padding: 14px 20px;
     margin: 8px 0;
-    border: 3px black solid;
+/*    border: 3px black solid;*/
+    border: none;
+    box-shadow: 0px 0px 10px black;
     cursor: pointer;
     width: 27%;
   }
@@ -173,14 +153,17 @@ export default {
     min-height: 300px;
     max-height: 1000px;
     width: 500px;
-    background-color: #4683FF;
+    background: var(--blue-purple-gradient);
+    color: white;
     position: fixed;
     display: static;
     left: 0;
     right: 0;
     z-index: 40;
     margin: auto;
-    
+    font-size: 22px;
+
+    padding: 10px 10px 10px 20px;
   }
 
   

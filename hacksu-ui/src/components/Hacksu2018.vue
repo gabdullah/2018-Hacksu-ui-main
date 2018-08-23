@@ -182,7 +182,7 @@ section {
   padding: 48px 0;
 }
 .green-section {
-  background: linear-gradient(to top left, #35c982, #4683FF);
+  background: var(--green-blue-gradient);
   color: white;
 }
 .green-section h1 {
@@ -354,7 +354,7 @@ button {
   font-size: 16px;
   font-weight: 500;
   color: white;
-  background: #35c982;
+  background: var(--green);
   box-shadow: none;
   border: none;
   cursor: pointer;
