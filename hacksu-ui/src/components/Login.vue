@@ -10,7 +10,10 @@
     <input type="password" v-model="psw">
     
     <div class="flex-container">
-      <span style="font-size: 15px;cursor:pointer;">No account? Click here!</span>
+      <span style="font-size: 15px;cursor:pointer;"
+            @click="$parent.popup = 'register'">
+        No account? Click here!
+      </span>
   
       <button @click="signIn()">
         Log me in!
@@ -96,32 +99,22 @@ export default {
     width: 75%;
     padding: 0px 20px 15px 20px;
     margin-top: 20px;
-    display: block;
     
     border: none;
     margin-bottom: 13px;
     border-bottom: 2px solid white;
-    transition-duration: .4s;
+/*    transition-duration: .4s;*/
 
     display: inline-block;
     box-sizing: border-box;
     background: none;
     color: white;
     font-size: 18px;
-/*    outline: none;*/
+    outline: none;
     
   }
-  input[type=text]::after {
-    content: '';
-    display: block; 
-    width: 20px;
-    height: 20px;
-    background: white;
-    z-index: 10000;
-/*
-    border-bottom: 5px solid white;
-    margin-bottom: 10px;
-*/
+  input[type=text]:focus, input[type=password]:focus {
+    border-bottom: 2px solid var(--purple);
   }
   
   

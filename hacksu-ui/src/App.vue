@@ -17,7 +17,7 @@
       <router-link to="FAQ" class="bannerItem">
         FAQ
       </router-link>
-      <a  v-if="!loggedIn" @click="loginModule = !loginModule" class="bannerItem">
+      <a  v-if="!loggedIn" @click="popup = 'register'" class="bannerItem">
         Login/Register
       </a>
       <!--<router-link v-else class="bannerItem profileItem" to="Profile">-->
@@ -37,13 +37,18 @@
     </ul>
     </header>
     
-    <div id="loginStuff" v-if="loginModule">
-      <div id="dimmer" @click="loginModule = false"> 
+    <div id="login-stuff" v-if="popup == 'login'">
+      <div id="dimmer" @click="popup = ''"> 
       </div> 
         <login-module>
         </login-module> 
     </div>
-    
+    <div id="register-stuff" v-if="popup == 'register'">
+      <div id="dimmer" @click="popup = ''"> 
+      </div> 
+        <register-module>
+        </register-module> 
+    </div>
     
     
     <router-view/>
@@ -54,6 +59,8 @@
 import members from './components/Hacksu2018';
 import events from './components/Hacksu2018';
 import loginModule from './components/Login';
+import registerModule from './components/Register';
+
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
@@ -63,10 +70,11 @@ export default {
   name: 'app',
   components: {
     loginModule,
+    registerModule,
   },
   data() {
     return {
-      loginModule: false,
+      popup: '',
       loggedIn: false,
       loggedInDropdown: false,
       members: [],
