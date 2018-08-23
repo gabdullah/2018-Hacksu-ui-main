@@ -11,7 +11,7 @@
       <router-link to="Contact" class = "bannerItem"> 
         Contact
       </router-link>
-      <a href="https://www.usconstitution.net/const.pdf" class="bannerItem" target="blank_">
+      <a href="../static/Constitution_2017_Update.pdf" class="bannerItem" target="blank_">
         Constitution
       </a>
       <router-link to="FAQ" class="bannerItem">
@@ -111,17 +111,18 @@ export default {
         this.loggedIn = true;
         this.loginModule = false;
       }
-    })
-    
-    vm.db.collection("users").get()
+    });
+
+    vm.db.collection("users")
+    .limit(10).get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         vm.members.push(doc.data());
       });
     });
+
     var today = new Date();
     var weekAgo = new Date(new Date().setDate(today.getDate()-7));
-    //console.log(today, "||", weekAgo, "||", today - (1000*60*60*24*7));
     vm.db.collection("calendarEvents")
     .where("date", ">=", weekAgo)
     .orderBy("date")

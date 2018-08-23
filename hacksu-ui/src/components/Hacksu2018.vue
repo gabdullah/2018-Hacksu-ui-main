@@ -8,7 +8,7 @@
       <div id="start-text">
         <h1>Learn. Grow. Create.</h1>
         <h2 class="subtitle">Hacksu teaches anyone, regardless of skill level or major, how to code.</h2>
-        <button v-scroll-to="{
+        <button class="map-container" v-scroll-to="{
         el: '#get-involved',
         duration: 500,
         easing: 'linear',
@@ -29,6 +29,7 @@
             {{member.name}}
           </div>
           <img class="member-icon-image idle-icon" :src="member.profilePicture"/>
+          <img class="member-icon-image hover-icon" :src="member.profilePicture"/>
         </div>
     <!--<div class="member-icon">
         <div class="member-name">Baymax</div>
@@ -67,25 +68,10 @@
         <h2>Every Tuesday @ 7pm</h2>
         <h3>Honors College, room 060</h3>
         <p class="white-link" @click="showMap = !showMap">Need directions?</p>
-        <iframe class="class-container" v-if="showMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.303743944166!2d-81.34756828434958!3d41.1497230186572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8831252c1fee9a43%3A0x65bd231d74579eb9!2sKent+State+University+Honors+College!5e0!3m2!1sen!2sus!4v1519874147929" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <iframe class="map-container" v-if="showMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.303743944166!2d-81.34756828434958!3d41.1497230186572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8831252c1fee9a43%3A0x65bd231d74579eb9!2sKent+State+University+Honors+College!5e0!3m2!1sen!2sus!4v1519874147929" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
       </div>
       <div class="class-container flex-col" id="events">
         <ul class="meeting-list">
-        <!--<li>
-          <div class="header">Web Basics, ExpressJS</div>
-          <div class="content">
-            <p>On the beginner side, we'll be learning the basics of web development - making websites! We will mostly be focusing on CSS and HTML. Make sure to bring a laptop! We will also be setting up Github accounts for those who don't have them.</p>
-            <br>
-            <p>On the advanced side, Isaac will be talking about Express.js, a Javascript framework for creating APIs!</p>
-
-            </div>
-        </li>
-        <li>
-          <div class="header">Web Basics, ExpressJS</div>
-        </li>
-        <li>
-          <div class="header">Web Basics, ExpressJS</div>
-        </li>-->
         <div v-for="event in $parent.events">
           <li>
             <div class="header">{{event.title}}</div>
@@ -133,22 +119,13 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      names: ['elizabeth', 'alex', 'sami'],
+      //names: ['elizabeth', 'alex', 'sami'],
       showMap: false,
     };
   },
   methods: {
 
   },
-  // mounted() {
-  //   var vm = this;
-  //   this.$parent.db.collection('users').get()
-  //     .then((users) => {
-  //       vm.profiles = users;
-  //     }).catch((error) => {
-  //       console.log("Error getting documents: ", error);
-  //     });
-  // },
 };
 </script>
 
@@ -159,11 +136,11 @@ export default {
 }
 
 #maincontainer {
-    position:absolute;
-    width:100%;
-    left:0;
-    top:0;
-    padding-top:50px;
+  position:absolute;
+  width:100%;
+  left:0;
+  top:0;
+  padding-top:50px;
   background: #041017;
   font-family: 'Abel', sans-serif;
   color:white;
@@ -212,26 +189,26 @@ section {
   margin-bottom: 0.375em;
 }
 .meeting-list {
-    color: black;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-    border-radius: 10px;
-    margin: 0 15px;
+  color: black;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  border-radius: 10px;
+  margin: 0 15px;
 }
 .meeting-list li {
-    background: white;
-    border-bottom: 1px solid #ddd;
-    display: block;
-    min-height: 3rem;
-    line-height: 3rem;
-    cursor: pointer;
-    padding: 0 1rem;
-    list-style-type: none;
-    opacity: 1;
-    text-align: left;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: block;
+  min-height: 3rem;
+  line-height: 3rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  list-style-type: none;
+  opacity: 1;
+  text-align: left;
 }
 .content {
-    line-height: 1em;
-    padding-bottom: 1em;
+  line-height: 1em;
+  padding-bottom: 1em;
 }
 .half-container {
   width: 50%;
@@ -240,6 +217,11 @@ section {
   width: 100%;
   max-width: 768px;
   padding: 0 5vw;
+  margin: 0 auto;
+}
+.map-container {
+  width: 100%;
+  max-width: 768px;
   margin: 0 auto;
 }
 .flex-row {
@@ -317,16 +299,16 @@ section {
   z-index: 10;
 }
 .member-name:before {
-			content: "";
-			position: absolute;
-			left: 50%;
-			bottom: -10px;
-			width: 12px;
-			height: 12px;
-			background-color: inherit;
-			box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
-			transform: rotate(45deg) translateX(-50%);
-			z-index: 99;
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 12px;
+  height: 12px;
+  background-color: inherit;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
+  transform: rotate(45deg) translateX(-50%);
+  z-index: 99;
 }
 .member-icon:hover .member-name {
   width: 100%;

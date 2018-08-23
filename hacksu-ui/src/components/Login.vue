@@ -89,7 +89,6 @@ export default {
       var vm = this;
       firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
       .then((user) => {
-        //console.log('signed in');
         this.$parent.loginModule = false;
         this.$parent.loggedIn = true;
       }).catch((error) => {
@@ -101,7 +100,6 @@ export default {
       var vm = this;
       firebase.auth().createUserWithEmailAndPassword(this.uname, this.psw)
       .then((user) => {
-        //console.log('success');
         firebase.auth().signInWithEmailAndPassword(this.uname, this.psw)
         .then((user) => {
           var userId = firebase.auth().currentUser.uid;
@@ -116,7 +114,6 @@ export default {
           });
         });
       }).catch((error) => {
-        //console.log(error.message);
         vm.errorMessage = error.message;
       })
     },
@@ -126,7 +123,6 @@ export default {
       var auth = firebase.auth();
       auth.sendPasswordResetEmail(this.reset)
       .then(() => {
-        //console.log('email sent');
         vm.errorMessage = 'A confirmation email has been sent!';
         vm.forgotPass = false;
        }).catch((error) => {
