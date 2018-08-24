@@ -32,8 +32,12 @@
         {{user.name}}
         <img class="member-image" v-bind:src="user.profilePicture">
       </a>
-      <div id="userMenu" v-if="userMenu">
-        <div class="userMenuOpt"
+      
+      <div id="user-menu" v-if="userMenu">
+        <div class="user-menu-opt">
+          Your profile
+        </div>
+        <div class="user-menu-opt"
              @click="logout()">
           Log Out
         </div>
@@ -164,6 +168,7 @@ export default {
 :root {
 /*  You can use these anywhere in the app like this: var(--blue);         */
   --bg-black: #041017;
+  --light-bg: #142027;
   --blue: #5284F7;
   --green: #35c982;
   --purple: #6850D1;
@@ -194,7 +199,7 @@ header li {
 #banner {
   width: 100%;
   position: fixed;
-  background: var(--bg-black);
+  background: var(--light-bg);
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
@@ -202,6 +207,8 @@ header li {
   top: 0px;
   margin-right: 0px;
   right: 0px;
+  border-bottom: solid 2px var(--blue);
+  box-shadow: 0px 0px 10px var(--blue);
 }
   #menu-toggler {
     display: none;
@@ -279,17 +286,26 @@ header li {
     
   }
   
-  #userMenu {
+  #user-menu {
     position: fixed;
-    top: 50px;
+    top: 56px;
     width: 200px;
     min-height: 100px;
-    background: black;
+    background: var(--light-bg);
     color: white;
+    z-index: 999; /*Behind #banner, in front of the rest */
+    border-bottom: solid 2px var(--green);
+    border-left: solid 2px var(--green);
+/*    box-shadow: 0px 0px 5px var(--green);*/
   }
-  .userMenuOpt:hover {
+  .user-menu-opt {
+    text-align: left;
+    padding: 5px 10px 5px 10px;
+    background: var(--light-bg); /*Needed for the lighten on hover */
+  }
+  .user-menu-opt:hover {
     cursor: pointer;
-    box-shadow: white 0px 0px 5px;
+    filter: brightness(150%);
   }
 
 </style>

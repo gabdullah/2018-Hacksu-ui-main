@@ -75,7 +75,7 @@ export default {
         this.$parent.db.collection('users').doc(userId).set({
           email: vm.email,
           name: vm.name,
-          profilePicture: "http://placehold.it/100x100.png",
+          profilePicture: "../../static/default-profile-pic.png",
           role: "member"
         }).then(() => {
           this.$parent.popup = '';
