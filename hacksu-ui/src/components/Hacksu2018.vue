@@ -26,10 +26,10 @@
       <div class= "member-container" id="members">
         <div v-for="member in $parent.members" class='member-icon'>
           <div class="member-name">
-            {{member.name}}
+            {{member.name || "No name!" }}
           </div>
           <img class="member-icon-image idle-icon" :src="member.profilePicture"/>
-          <img class="member-icon-image hover-icon" :src="member.profilePicture"/>
+          <img class="member-icon-image hover-icon" :src="member.hoverPicture"/>
         </div>
     <!--<div class="member-icon">
         <div class="member-name">Baymax</div>
@@ -240,47 +240,14 @@ section {
   flex-wrap: wrap;
   margin-top: 40px;
 }
-.member-icon {
-  position: relative;
-  width: 25vw;
-  height: 25vw;
-  min-width: 90px;
-  min-height: 90px;
-  max-width: 150px;
-  max-height: 150px;
-  margin: 4px;
-  border-radius: 100%;
-  background-color: #FAFAFA;
-  cursor: pointer;
-}
-.member-icon-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  transform: translate(-50%, -50%);
-}
+/* 
   
-.idle-icon {
-  opacity: 1;
-}
-.hover-icon {
-  opacity: 0;
-}
-.active-icon {
- opacity: 0;
-}
-.member-icon:hover {
-  animation: hop 0.6s cubic-bezier(0.245, 0.325, 0.510, 1.0);
-}
-.member-icon:hover .idle-icon {
- opacity: 0;
-}
-.member-icon:hover .hover-icon {
- opacity: 1;
-}
+  
+member-icon-image, idle-icon, hover-icon classes are global, find them in app.vue
+  
+  */
+  
+  
 .member-name {
   position: relative;
   top: -48px;

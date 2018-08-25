@@ -33,10 +33,13 @@
         <img class="member-image" v-bind:src="user.profilePicture">
       </a>
       
-      <div id="user-menu" v-if="userMenu">
-        <div class="user-menu-opt">
+      <div id="user-menu" v-if="userMenu"
+           @click="userMenu = false">
+        <router-link class="user-menu-opt"
+                     tag="div"
+                     :to="{name: 'you'}">
           Your profile
-        </div>
+        </router-link>
         <div class="user-menu-opt"
              @click="logout()">
           Log Out
@@ -195,6 +198,61 @@ header li {
   padding: 20px 20px;
   font-family: 'Abel', sans-serif;
 }
+  
+  .full-page {
+    position: absolute;
+    top: 55px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Member-icon styles */
+  
+  .member-icon {
+  position: relative;
+  width: 25vw;
+  height: 25vw;
+  min-width: 90px;
+  min-height: 90px;
+  max-width: 150px;
+  max-height: 150px;
+  margin: 4px;
+  border-radius: 100%;
+  background-color: #FAFAFA;
+  cursor: pointer;
+}
+.member-icon-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+}
+  
+.idle-icon {
+  opacity: 1;
+}
+.hover-icon {
+  opacity: 0;
+}
+.active-icon {
+ opacity: 0;
+}
+.member-icon:hover {
+  animation: hop 0.6s cubic-bezier(0.245, 0.325, 0.510, 1.0);
+}
+.member-icon:hover .idle-icon {
+ opacity: 0;
+}
+.member-icon:hover .hover-icon {
+ opacity: 1;
+}
+  
+  
+/*  Banner styles */
   
 #banner {
   width: 100%;

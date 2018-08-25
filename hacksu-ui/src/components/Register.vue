@@ -2,13 +2,17 @@
   <div id="loginModule">
     <h1>Register</h1>
     
-    <div>Email:</div>
+    <div class="label">Display Name:</div>
+    <p class="label"><i>You can always change this later.</i></p>
+    <input type="text" v-model="name">
+    
+    <div class="label">Email:</div>
     <input type="text" v-model="email">
     
-    <div>Password:</div>
+    <div class="label">Password:</div>
     <input type="password" v-model="psw">
     
-    <div>Confirm Password:</div>
+    <div class="label">Confirm Password:</div>
     <input type="password" v-model="psw2"
            @keyup.enter="signUp()">
     
@@ -60,6 +64,11 @@ export default {
 
     signUp() {
       
+      if (!this.name || !this.email) {
+        this.errorMessage = "Name and email required.";
+        return;
+      }
+      
       if (this.psw != this.psw2) {
         this.errorMessage = "Those passwords don't match";
         return;
@@ -76,6 +85,7 @@ export default {
           email: vm.email,
           name: vm.name,
           profilePicture: "../../static/default-profile-pic.png",
+          hoverPicture: "../../static/default-hover-pic.png",
           role: "member"
         }).then(() => {
           this.$parent.popup = '';
@@ -170,6 +180,13 @@ export default {
     font-size: 22px;
 
     padding: 10px 10px 10px 20px;
+  }
+  
+  .label {
+    margin-bottom: -20px;
+  }
+  p {
+    font-size: 14px;
   }
 
   
