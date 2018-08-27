@@ -5,6 +5,9 @@ import Login from '@/components/Login';
 import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact'; 
 import You from '@/components/users/You';
+import Events from '@/components/Admin/Events';
+import BadgeEditor from '@/components/Admin/BadgeEditor';
+
 
 import NotFound from '@/components/NotFound';
 Vue.use(Router);
@@ -36,6 +39,16 @@ export default new Router({
       path: '/you',
       name: 'you',
       component: You,
+    },
+    {
+      path: '/events',
+      name: 'events',
+      component: Events
+    },
+    {
+      path: '/badge-editor',
+      name: 'badge-editor',
+      component: BadgeEditor
     },
     
     {

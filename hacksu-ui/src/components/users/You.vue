@@ -1,6 +1,6 @@
 <template>
 <div class="full-page" id="you">
-  <h1>Your Profile</h1>
+  <h1 class="page-header">Your Profile</h1>
   <div class="details">
     
     <div class="edit-details">
@@ -122,10 +122,6 @@ export default {
     color: white;
   }
   h1 {
-    font-size: 5rem;
-    text-align: left;
-    display: block;
-    padding: 50px 5vw 30px 5vw;
     background: var(--light-bg);
   }
   

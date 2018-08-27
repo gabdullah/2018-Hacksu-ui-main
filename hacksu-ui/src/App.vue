@@ -40,6 +40,16 @@
                      :to="{name: 'you'}">
           Your profile
         </router-link>
+        <router-link class="user-menu-opt"
+                     tag="div"
+                     :to="{name: 'events'}">
+          ⭐Events
+        </router-link>
+        <router-link class="user-menu-opt"
+                     tag="div"
+                     :to="{name: 'badge-editor'}">
+          ⭐Badge Editor
+        </router-link>
         <div class="user-menu-opt"
              @click="logout()">
           Log Out
@@ -173,6 +183,7 @@ export default {
   --bg-black: #041017;
   --light-bg: #142027;
   --blue: #5284F7;
+  --dark-blue: #4274E7;
   --green: #35c982;
   --purple: #6850D1;
   --orange: #e26b4a;
@@ -205,6 +216,14 @@ header li {
     left: 0px;
     height: 100%;
     width: 100%;
+  }
+  
+  .page-header {
+    width: 100%;
+    padding: 50px 5vw 30px 5vw;
+    font-size: 5rem;
+    text-align: left;
+/*    Add this class and then define background color.*/
   }
   
   /* Member-icon styles */
