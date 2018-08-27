@@ -83,10 +83,19 @@ import events from './components/Hacksu2018';
 import loginModule from './components/Login';
 import registerModule from './components/Register';
 
+import Vue from 'vue';
+  
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+  
+import VueFire from 'vuefire';
+Vue.use(VueFire)
+
 
 import { config } from './config';
+  
+firebase.initializeApp(config);
+var db = firebase.firestore();
 
 export default {
   name: 'app',
@@ -104,8 +113,13 @@ export default {
       db: null,
       
       user: null,
-      userMenu: false
+      userMenu: false,
+      
+      badges: [],
     }
+  },
+  firestore: {
+    badges: db.collection('badges')
   },
 
   methods: {
@@ -136,8 +150,7 @@ export default {
 
   mounted() {
     var vm = this;
-    firebase.initializeApp(config);
-    vm.db = firebase.firestore();    
+    vm.db = db;
     
     firebase.auth().onAuthStateChanged((user) => {
       // This if statement will be true if the user is logged in
@@ -184,6 +197,7 @@ export default {
   --light-bg: #142027;
   --blue: #5284F7;
   --dark-blue: #4274E7;
+  --darker-blue: #2254C7;
   --green: #35c982;
   --purple: #6850D1;
   --orange: #e26b4a;
@@ -219,7 +233,7 @@ header li {
   }
   
   .page-header {
-    width: 100%;
+    width: 90vw;
     padding: 50px 5vw 30px 5vw;
     font-size: 5rem;
     text-align: left;
