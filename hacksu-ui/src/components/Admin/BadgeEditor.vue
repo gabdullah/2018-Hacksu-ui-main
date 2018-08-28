@@ -59,6 +59,9 @@
 
     </div>
   </div>
+  <div class="badge" v-for="badge in $parent.badges">
+    <h1>Wow a badge</h1>
+  </div>
 </div>
 </template>
 
@@ -101,6 +104,13 @@ export default {
         description: this.description
       }
       console.log("Uploading this: ", badge);
+      
+      this.$parent.db.collection('badges').doc(this.badgeID)
+        .set(badge).then((docRef) => {
+        console.log("SUCCESS")
+      }).catch((err) => {
+        console.error("Error adding badge: ", err);a
+      })
     },
     
     uploadImage(event) {

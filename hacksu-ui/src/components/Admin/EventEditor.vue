@@ -1,6 +1,6 @@
 <template>
 <div class="full-page events">
-  <h1>Events</h1>
+  <h1 class="page-header">Event Editor</h1>
 </div>
 </template>
 
@@ -12,5 +12,8 @@
   .events {
     background: var(--bg-black);
     color: white;
+  }
+  h1 {
+    background: var(--light-bg);
   }
 </style>

@@ -5,7 +5,7 @@ import Login from '@/components/Login';
 import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact'; 
 import You from '@/components/users/You';
-import Events from '@/components/Admin/Events';
+import EventEditor from '@/components/Admin/EventEditor';
 import BadgeEditor from '@/components/Admin/BadgeEditor';
 
 
@@ -41,9 +41,9 @@ export default new Router({
       component: You,
     },
     {
-      path: '/events',
-      name: 'events',
-      component: Events
+      path: '/event-editor',
+      name: 'event-editor',
+      component: EventEditor
     },
     {
       path: '/badge-editor',

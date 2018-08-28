@@ -42,11 +42,13 @@
         </router-link>
         <router-link class="user-menu-opt"
                      tag="div"
-                     :to="{name: 'events'}">
-          ⭐Events
+                     v-if="user.isAdmin"
+                     :to="{name: 'event-editor'}">
+          ⭐Event Editor
         </router-link>
         <router-link class="user-menu-opt"
                      tag="div"
+                     v-if="user.isAdmin"
                      :to="{name: 'badge-editor'}">
           ⭐Badge Editor
         </router-link>
@@ -87,10 +89,6 @@ import Vue from 'vue';
   
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-  
-import VueFire from 'vuefire';
-Vue.use(VueFire)
-
 
 import { config } from './config';
   
@@ -117,9 +115,6 @@ export default {
       
       badges: [],
     }
-  },
-  firestore: {
-    badges: db.collection('badges')
   },
 
   methods: {
