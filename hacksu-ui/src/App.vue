@@ -52,6 +52,11 @@
                      :to="{name: 'badge-editor'}">
           ⭐Badge Editor
         </router-link>
+        <router-link class="user-menu-opt"
+                     tag="div"
+                     :to="{name: 'Badges'}">
+          Badges
+        </router-link>
         <div class="user-menu-opt"
              @click="logout()">
           Log Out
@@ -128,6 +133,17 @@ export default {
         console.error("There was a problem getting the user: ", err);
       })
     },
+    loadBadges() {
+      var vm = this;
+      this.badges = [];
+      this.db.collection('badges').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+          this.badges.push(doc.data());
+        })
+      }).catch((err) => {
+        console.error("Error getting badges: ", err);
+      })
+    },
     logout() {
       firebase.auth().signOut();
       this.user = null;
@@ -177,6 +193,8 @@ export default {
         vm.events.push(doc.data());
       });
     });
+    
+    this.loadBadges();
   }
 };
 </script>
@@ -233,6 +251,14 @@ header li {
     font-size: 5rem;
     text-align: left;
 /*    Add this class and then define background color.*/
+  }
+  
+  .basic-input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    font-size: 20px;
+    color: white;
   }
   
   /* Member-icon styles */

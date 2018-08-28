@@ -59,9 +59,11 @@
 
     </div>
   </div>
+<!--
   <div class="badge" v-for="badge in $parent.badges">
     <h1>Wow a badge</h1>
   </div>
+-->
 </div>
 </template>
 
@@ -150,7 +152,7 @@ export default {
   }
   .badge {
     background: var(--darker-blue);
-    width: calc(45vw - 20px);
+/*    width: calc(40vw - 20px);*/
     margin: 20px 5vw 20px 5vw;
     padding: 20px 20px 20px 20px;
     min-width: 500px;
