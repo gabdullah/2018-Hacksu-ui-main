@@ -261,6 +261,15 @@ header li {
     color: white;
   }
   
+  .badge-icon {
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    margin-right: 10px;
+    background: var(--bg-black);
+    border-radius: 5px;
+  }
+  
   /* Member-icon styles */
   
   .member-icon {

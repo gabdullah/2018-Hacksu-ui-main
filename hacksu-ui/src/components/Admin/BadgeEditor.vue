@@ -185,14 +185,6 @@ export default {
     opacity: .5;
     cursor: default;
   }
-  .badge-icon {
-    height: 50px;
-    width: 50px;
-    padding: 10px;
-    margin-right: 10px;
-    background: var(--bg-black);
-    border-radius: 5px;
-  }
   .new-badge-icon {
     cursor: pointer;
   }
