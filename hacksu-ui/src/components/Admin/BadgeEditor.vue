@@ -20,7 +20,7 @@
       </button>
     </div>
     <div id="badge-details"
-         v-else>
+         v-else-if="!submitted">
       <div class="flex-row">
         <input type="file" ref="pictureUpload" @change="uploadImage">
         <img src="/static/badges/new_badge.png"
@@ -52,18 +52,27 @@
       </div>
       <button class="badge-button"
               @click="submitBadge()"
-              
+              v-if="!submitting"
               :class="{ disabled: !validID }">
         Submit
       </button>
+      <button class="badge-button disabled"
+              v-else>
+        Submitting...
+      </button> 
 
     </div>
+    <div v-else>
+      <h4>Submitted</h4>
+      <button class="badge-button"
+              @click="startOver()">
+        [DJ Khaled voice]: Anotha one
+      </button>
+    </div>
   </div>
-<!--
-  <div class="badge" v-for="badge in $parent.badges">
-    <h1>Wow a badge</h1>
+  <div class="badge-container">
+    <badge-selector></badge-selector>
   </div>
--->
 </div>
 </template>
 
@@ -71,6 +80,8 @@
 import InputTag from 'vue-input-tag';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+  
+import badgeSelector from '../BadgeSelector';
 
   
 export default {
@@ -81,11 +92,15 @@ export default {
       description: '',
       title: '',
       tags: [],
-      badgeImage: ''
+      badgeImage: '',
+      
+      submitting: false,
+      submitted: false
     }
   },
   components: {
-    InputTag
+    InputTag,
+    badgeSelector
   },
   computed: {
     validID() {
@@ -97,6 +112,16 @@ export default {
       this.idSelected = this.validID;
     },
     
+    startOver() {
+      this.badgeID = '';
+      this.idSelected = false;
+      this.description = '';
+      this.title = '';
+      this.tags = [];
+      this.badgeImage = '';
+      this.submitted = false;
+    },
+    
     submitBadge() {
       var badge = {
         id: this.badgeID,
@@ -105,10 +130,13 @@ export default {
         icon: this.badgeImage,
         description: this.description
       }
+      this.submitting = true;
       console.log("Uploading this: ", badge);
       
       this.$parent.db.collection('badges').doc(this.badgeID)
         .set(badge).then((docRef) => {
+        this.submitting = false;
+        this.submitted = true;
         console.log("SUCCESS")
       }).catch((err) => {
         console.error("Error adding badge: ", err);a
@@ -154,7 +182,7 @@ export default {
     background: var(--darker-blue);
 /*    width: calc(40vw - 20px);*/
     margin: 20px 5vw 20px 5vw;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 5vw 20px 5vw;
     min-width: 500px;
     text-align: left;
   }
@@ -164,6 +192,9 @@ export default {
     border-bottom: solid white;
     color: white;
     font-size: 16px;
+  }
+  .badge-container {
+    padding: 0px 5vw 0px 5vw;
   }
   
 /*  Um why isn't this working?? TODO: Fix!!! */

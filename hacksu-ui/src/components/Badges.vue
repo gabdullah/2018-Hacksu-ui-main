@@ -1,7 +1,9 @@
 <template>
 <div class="full-page">
   <h1 class="page-header">Badges</h1>
-  <badge-selector></badge-selector>
+  <div class="container">
+    <badge-selector></badge-selector>
+  </div>
 </div>
 </template>
 
@@ -20,5 +22,14 @@ export default {
 </script>
 
 <style scoped>
-
+  .full-page {
+    background: var(--light-bg);
+    color: var(--purple);
+  }
+  h1 {
+    background: var(--bg-black);
+  }
+  .container {
+    padding: 0px 5vw 0px 5vw;
+  }
 </style>
