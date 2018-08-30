@@ -12,7 +12,7 @@
              >
       <p>Please use no spaces & snake_case, & an integer at the end of the name indicating the level of the badge, if applicable.</p>
       
-      <button class="badge-button"
+      <button class="white-button"
               @click="selectID()"
               
               :class="{ disabled: !validID }">
@@ -50,13 +50,13 @@
           <textarea v-model="description"></textarea>
         </div>
       </div>
-      <button class="badge-button"
+      <button class="white-button"
               @click="submitBadge()"
               v-if="!submitting"
               :class="{ disabled: !validID }">
         Submit
       </button>
-      <button class="badge-button disabled"
+      <button class="white-button disabled"
               v-else>
         Submitting...
       </button> 
@@ -64,7 +64,7 @@
     </div>
     <div v-else>
       <h4>Submitted</h4>
-      <button class="badge-button"
+      <button class="white-button"
               @click="startOver()">
         [DJ Khaled voice]: Anotha one
       </button>
@@ -137,9 +137,10 @@ export default {
         .set(badge).then((docRef) => {
         this.submitting = false;
         this.submitted = true;
+        this.$parent.loadBadges();
         console.log("SUCCESS")
       }).catch((err) => {
-        console.error("Error adding badge: ", err);a
+        console.error("Error adding badge: ", err);
       })
     },
     
@@ -203,15 +204,6 @@ export default {
     opacity: 1;
   }
   
-  .badge-button {
-    background: white;
-    padding: 10px 20px 10px 20px;
-    font-size: 14px;
-    color: var(--darker-blue);
-    font-weight: bolder;
-    cursor: pointer;
-    transition-duration: .1s;
-  }
   .disabled {
     opacity: .5;
     cursor: default;

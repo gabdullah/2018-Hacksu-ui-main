@@ -279,6 +279,16 @@ header li {
     background: linear-gradient(to top right, var(--bg-black), #243037);
   }
   
+  .white-button {
+    background: white;
+    padding: 10px 20px 10px 20px;
+    font-size: 14px;
+    color: var(--darker-blue);
+    font-weight: bolder;
+    cursor: pointer;
+    transition-duration: .1s;
+  }
+  
   /* Member-icon styles */
   
   .member-icon {
