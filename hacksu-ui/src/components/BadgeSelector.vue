@@ -67,6 +67,7 @@ export default {
     display: flex;
     flex-flow: row wrap;
     max-width: 500px;
+    margin: 0 auto;
   }
   .selected-badge {
     border: 2px solid white;
