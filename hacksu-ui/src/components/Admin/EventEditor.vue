@@ -4,7 +4,8 @@
   <div class="new-event">
     Title: <input type="text" class="basic-input">
     <br>
-    Is this a hacksu lesson? <input type="checkbox" v-model="isLesson">
+    Is this a hacksu lesson? <input type="checkbox" v-model="isLesson"><br>
+    <date-picker v-model="date" lang="en"></date-picker>
     <div class="side-container">
       
       <div class="side-1 event-planner">
@@ -73,11 +74,13 @@
 
 <script>
 import badgeSelector from '../BadgeSelector';
+import DatePicker from 'vue2-datepicker';
 
 export default {
   data() {
     return {
       isLesson: true,
+      date: new Date(),
       
       sideAPart: 0,
       sideA: {
@@ -96,6 +99,7 @@ export default {
   },
   components: {
     badgeSelector,
+    DatePicker
   }
 }
 </script>
