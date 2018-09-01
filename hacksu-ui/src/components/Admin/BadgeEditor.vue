@@ -2,6 +2,10 @@
 <div class="full-page badges">
   <h1 class="page-header">Badge editor</h1>
   
+  <input v-model="myMessage">
+  
+  {{myMessage}}
+  
   <div class="new-badge badge">
     <div id="badge-id-selector" v-if="!idSelected">
       <span>Badge ID </span>
@@ -95,7 +99,9 @@ export default {
       badgeImage: '',
       
       submitting: false,
-      submitted: false
+      submitted: false,
+      
+      myMessage: 'hi'
     }
   },
   components: {

@@ -2,7 +2,7 @@
 <div class="full-page events">
   <h1 class="page-header">Event Editor</h1>
   <div class="new-event">
-    Title: <input type="text" class="basic-input">
+    Title: <input type="text" class="basic-input" v-model="title">
     <br>
     Is this a hacksu lesson? <input type="checkbox" v-model="isLesson"><br>
     <date-picker v-model="date" lang="en"></date-picker>
@@ -18,13 +18,17 @@
         </div>
         <div class="requirements" v-else-if="sideAPart == 1">
           <p>Required badges:</p>
-          <badge-selector v-model="sideA.requirements"></badge-selector>
+          <badge-selector id="reqs" v-model="sideA.requirements"
+                          v-if="sideAPart == 1">
+          </badge-selector>
           <button class="white-button" @click="sideAPart--">Back</button>
           <button class="white-button" @click="sideAPart++">Next</button>
         </div>
         <div class="skills" v-else-if="sideAPart == 2">
           <p>Skills taught:</p>
-          <badge-selector v-model="sideA.skills"></badge-selector>
+          <badge-selector id="skills" v-model="sideA.skills"
+                          v-if="sideAPart == 2">
+          </badge-selector>
           <button class="white-button" @click="sideAPart--">Back</button>
           <button class="white-button" @click="sideAPart++">Next</button>
         </div>
@@ -64,8 +68,11 @@
       </div>
       
     </div>
-    <button class="white-button" v-if="sideAPart == 3 && (!isLesson || sideBPart == 3)">
-        Submit lesson!
+    <button class="white-button" 
+            v-if="sideAPart == 3 && (!isLesson || sideBPart == 3)"
+            @click="submitEvent()"
+            >
+        Submit event!
       </button>
   
   </div>
@@ -75,10 +82,12 @@
 <script>
 import badgeSelector from '../BadgeSelector';
 import DatePicker from 'vue2-datepicker';
+import {slugifyDate} from '@/utils.js';
 
 export default {
   data() {
     return {
+      title: '',
       isLesson: true,
       date: new Date(),
       
@@ -95,6 +104,23 @@ export default {
         requirements: [],
         skills: []
       }
+    }
+  },
+  methods: {
+    submitEvent() {
+      var slugDate = slugifyDate(this.date)
+      this.$parent.db.collection('events').doc(slugDate)
+      .set({
+        title: this.title,
+        isLesson: this.isLesson,
+        date: this.date,
+        sideA: this.sideA,
+        sideB: this.sideB
+      }).then(() => {
+        console.log("Successfully submitted event!");
+      }).catch((err) => {
+        console.error("Error submitting event: ", err);
+      })
     }
   },
   components: {

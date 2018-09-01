@@ -36,7 +36,7 @@ export default {
         console.log("No v-model provided");
         return;
       }
-      console.log(badge);
+//      console.log(badge);
       // Selecting:
       if (!this.badgeBool[badge.id]) {
         // Adding element to our array:
