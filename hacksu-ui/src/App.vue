@@ -22,7 +22,7 @@
       <router-link to="FAQ" class="bannerItem" v-if="0">
         FAQ
       </router-link>
-      <a  v-if="!loggedIn" @click="loginPopup()" class="bannerItem">
+      <a v-if="!loggedIn" @click="loginPopup()" class="bannerItem">
         Login/Register
       </a>
       <!--<router-link v-else class="bannerItem profileItem" to="Profile">-->

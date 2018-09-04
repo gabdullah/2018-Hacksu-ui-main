@@ -22,14 +22,14 @@
                           v-if="sideAPart == 1">
           </badge-selector>
           <button class="white-button" @click="sideAPart--">Back</button>
-          <button class="white-button" @click="sideAPart++">Next</button>
+          <button class="white-button" @click="nextWithPause('sideAPart')">Next</button>
         </div>
         <div class="skills" v-else-if="sideAPart == 2">
           <p>Skills taught:</p>
           <badge-selector id="skills" v-model="sideA.skills"
                           v-if="sideAPart == 2">
           </badge-selector>
-          <button class="white-button" @click="sideAPart--">Back</button>
+          <button class="white-button" @click="backWithPause('sideAPart')">Back</button>
           <button class="white-button" @click="sideAPart++">Next</button>
         </div>
         <div v-else-if="sideAPart == 3">
@@ -51,12 +51,12 @@
           <p>Required badges:</p>
           <badge-selector v-model="sideB.requirements"></badge-selector>
           <button class="white-button" @click="sideBPart--">Back</button>
-          <button class="white-button" @click="sideBPart++">Next</button>
+          <button class="white-button" @click="nextWithPause('sideBPart')">Next</button>
         </div>
         <div class="requirements" v-else-if="sideBPart == 2">
           <p>Skills taught:</p>
           <badge-selector v-model="sideB.skills"></badge-selector>
-          <button class="white-button" @click="sideBPart--">Back</button>
+          <button class="white-button" @click="backWithPause('sideBPart')">Back</button>
           <button class="white-button" @click="sideBPart++">Next</button>
         </div>
         <div v-else-if="sideBPart == 3">
@@ -107,6 +107,29 @@ export default {
     }
   },
   methods: {
+    // Okay this function is needed for a really weird bug I couldn't otherwise fix,
+    // but it is a gross hack!!! fix this!!
+    // 
+    // nextWithPause('sideAPart') takes the place of this.sideAPart++, except it gives
+    // 10 milliseconds before sideAPart is incremented where it's set to -1. 
+    //
+    // This is needed because if there's no gap, for some reason the sideA.requirements data 
+    // gets bound with sideA.skills because the $emit function gets confused.
+    nextWithPause(part) {
+      var currentPart = this[part];
+      this[part] = -1;
+      setTimeout(() => {
+        this[part] = currentPart + 1;
+      }, 10)
+    },
+    backWithPause(part) {
+      var currentPart = this[part];
+      this[part] = -1;
+      setTimeout(() => {
+        this[part] = currentPart - 1;
+      }, 10)
+    },
+    
     submitEvent() {
       var slugDate = slugifyDate(this.date)
       this.$parent.db.collection('events').doc(slugDate)

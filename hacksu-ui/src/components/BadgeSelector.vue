@@ -1,7 +1,7 @@
 <template>
 <div class="badge-container">
   <div v-for="badge in $parent.$parent.badges"
-       @click="selectBadge(badge)"
+       @click="selectBadge(badge.id)"
        
        >
     <img :src="badge.icon" class="badge-icon" 
@@ -30,31 +30,37 @@ export default {
       selectedBadges: [],
     }
   },
+  mounted() {
+    for (var i in this.value) {
+      this.selectBadge(this.value[i]);
+    }
+  },
   methods: {
-    selectBadge(badge) {
+    selectBadge(id) {
       if (!this.value) {
         console.log("No v-model provided");
         return;
       }
-//      console.log(badge);
+
       // Selecting:
-      if (!this.badgeBool[badge.id]) {
+      if (!this.badgeBool[id]) {
         // Adding element to our array:
-        this.selectedBadges.push(badge.id);
+        this.selectedBadges.push(id);
         // Updating 'v-model'ed data:
         this.$emit('input', this.selectedBadges);
         // Updating UI:
-        Vue.set(this.badgeBool, badge.id, true);
+        Vue.set(this.badgeBool, id, true);
+        console.log(id, " is being set to true!")
       // Deselecting:
       } else {
         // Finding and erasing id from array
-        var index = this.selectedBadges.indexOf(badge.id);
+        var index = this.selectedBadges.indexOf(id);
         if (index > -1) {
           this.selectedBadges.splice(index, 1);
           // Updating 'v-model'ed data
           this.$emit('input', this.selectedBadges);
           // Updating UI:
-          Vue.set(this.badgeBool, badge.id, false);
+          Vue.set(this.badgeBool, id, false);
         }
       }
     }
