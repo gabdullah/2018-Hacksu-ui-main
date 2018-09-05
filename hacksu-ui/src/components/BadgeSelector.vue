@@ -50,7 +50,7 @@ export default {
         this.$emit('input', this.selectedBadges);
         // Updating UI:
         Vue.set(this.badgeBool, id, true);
-        console.log(id, " is being set to true!")
+//        console.log(id, " is being set to true!")
       // Deselecting:
       } else {
         // Finding and erasing id from array

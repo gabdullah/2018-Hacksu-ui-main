@@ -73,11 +73,65 @@
       <div class="class-container flex-col" id="events">
         <ul class="meeting-list">
         <div v-for="event in $parent.events">
-          <li>
-            <div class="header">{{event.title}}</div>
-            <div class="content">
-              <p>{{event.description}}</p>
+          <li> 
+            <div class="date-disp">
+              <div class="month">{{ prettyMonth(event.date) }}</div>
+              {{event.date.getDate()}}
             </div>
+            <div class="event-header">{{event.title}}</div>
+            <div v-if="event.isLesson" style="font-size: 16px;">
+              A Hacksu Lesson!
+            </div>
+            
+            <div class="side">
+              <p style="font-weight: bold;">Side A</p>
+              <p>{{event.sideA.description}}</p>
+              <div class="reqs-skills">
+                <div class="badge-holder">
+                  Requirements: 
+                  <div v-for="id in event.sideA.requirements"
+                       >
+                    <img :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                         v-tooltip="$parent.badgeObj[id].title">
+                  </div>
+                </div>
+                <div class="badge-holder">
+                  Skills: 
+                  <div v-for="id in event.sideA.skills"
+                       class="flex-container"
+                       >
+                    <img :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                         v-tooltip="$parent.badgeObj[id].title">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="side">
+              <p style="font-weight: bold;">Side B</p>
+              <p>{{event.sideB.description}}</p>
+              <div class="reqs-skills">
+                <div class="badge-holder">
+                  Requirements: 
+                  <div class="flex-container"
+                       >
+                    <img v-for="id in event.sideB.requirements"
+                         :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                         v-tooltip="$parent.badgeObj[id].title">
+                  </div>
+                </div>
+                <div class="badge-holder">
+                  Skills: 
+                  <div class="flex-container"
+                       >
+                    <img v-for="id in event.sideB.skills"
+                         :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                         v-tooltip="$parent.badgeObj[id].title">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </li>
         </div>
         </ul>
@@ -124,7 +178,13 @@ export default {
     };
   },
   methods: {
-
+    prettyMonth(date) {
+      const monthNames = ["Jan.", "Feb.", "Mar.", "April", "May", "June",
+                          "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."
+                         ];
+      var month = date.getMonth();
+      return monthNames[month];
+    }
   },
 };
 </script>
@@ -190,7 +250,9 @@ section {
 }
 .meeting-list {
   color: black;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  padding-left: 100px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),
+              0 2px 10px 0 rgba(0,0,0,0.12);
   border-radius: 10px;
   margin: 0 15px;
 }
@@ -200,7 +262,7 @@ section {
   display: block;
   min-height: 3rem;
   line-height: 3rem;
-  cursor: pointer;
+/*  cursor: pointer;*/
   padding: 0 1rem;
   list-style-type: none;
   opacity: 1;
@@ -247,6 +309,15 @@ member-icon-image, idle-icon, hover-icon classes are global, find them in app.vu
   
   */
   
+  .flex-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row wrap;
+  }
+  .badge-holder {
+    flex-grow: 1;
+    text-align: center;
+  }
   
 .member-name {
   position: relative;
@@ -333,6 +404,33 @@ button:hover {
 h1, h2, h3, h4, .meeting-list .header, label {
   font-family: 'Ropa Sans', sans-serif;
 }
+.event-header {
+  font-weight: bolder;
+  font-size: 22px;
+  margin-bottom: -28px;
+}
+  .month {
+    font-size: 14px;
+    margin-bottom: -20px;
+    padding: 0px;
+    
+  }
+  .side {
+    flex-grow: 1;
+  }
+.date-disp {
+  color: white;
+  font-size: 32px;
+  position: absolute;
+  font-weight: bolder;
+  margin-left: -100px;
+    width: 70px;
+  text-align: center;
+}
+  .reqs-skills {
+    display: flex;
+    justify-content: space-around;
+  }
 h1 {
   font-size: 3em;
   line-height: 1.5em;

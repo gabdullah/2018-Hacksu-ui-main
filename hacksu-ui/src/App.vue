@@ -123,6 +123,7 @@ export default {
       userMenu: false,
       
       badges: [],
+      badgeObj: {}
     }
   },
 
@@ -142,10 +143,23 @@ export default {
       this.badges = [];
       this.db.collection('badges').get().then((snapshot) => {
         snapshot.forEach((doc) => {
+          var badge = doc.data();
           this.badges.push(doc.data());
+          Vue.set(this.badgeObj, badge.id, badge);
         })
       }).catch((err) => {
         console.error("Error getting badges: ", err);
+      })
+    },
+    loadEvents() {
+      var vm = this;
+      this.events = [];
+      this.db.collection('events').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+          this.events.push(doc.data());
+        })
+      }).catch((err) => {
+        console.error("Error getting events: ", err);
       })
     },
     logout() {
@@ -199,6 +213,7 @@ export default {
     });
     
     this.loadBadges();
+    this.loadEvents();
   }
 };
 </script>
