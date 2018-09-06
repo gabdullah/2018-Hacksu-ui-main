@@ -2,11 +2,16 @@
 <div class="full-page badges">
   <h1 class="page-header">Badge editor</h1>
   
-  <input v-model="myMessage">
-  
-  {{myMessage}}
-  
-  <div class="new-badge badge">
+  <div class="new-badge widget">
+    <p>How to make a badge:</p>
+    <p>Badges come in two varieties: skills and achievements. Currently, we only have a system for skills.</p>
+    <p>To make a new skill badge, first you need an icon. You can save and edit this image <img src="/static/badges/empty_badge.png" width="20" style="background:var(--bg-black)"> to add an icon in the center. Look off current badges to see the color scheme you should use for the appropriate level of skill you'd like your badge to represent.</p>
+    
+    <p>Try to break "skill levels" down to concepts that could be introduced in an hour. Write thorough descriptions for each badge, with examples of specific peices of knowledge someone with that badge should know.</p>
+    
+    <p>Badge titles use roman numerals to represent skill level. So, the badge with the id <b>html_3</b> has the title <b>HTML III</b>. Keep it fancy!</p>
+  </div>
+  <div class="new-badge widget">
     <div id="badge-id-selector" v-if="!idSelected">
       <span>Badge ID </span>
       <input type="text" v-model="badgeID"
@@ -100,8 +105,6 @@ export default {
       
       submitting: false,
       submitted: false,
-      
-      myMessage: 'hi'
     }
   },
   components: {
@@ -185,7 +188,7 @@ export default {
     background: var(--blue);
     color: white;
   }
-  .badge {
+  .widget {
     background: var(--darker-blue);
 /*    width: calc(40vw - 20px);*/
     margin: 20px 5vw 20px 5vw;

@@ -14,6 +14,10 @@
         <div class="desc" v-if="sideAPart == 0">
           <p>Description:</p>
           <textarea v-model="sideA.description"></textarea><br>
+          
+          <p>Attendance code:</p>
+          <input v-model="sideA.code"><br><br>
+          
           <button class="white-button" @click="sideAPart++">Next</button>
         </div>
         <div class="requirements" v-else-if="sideAPart == 1">
@@ -45,6 +49,10 @@
         <div class="desc" v-if="sideBPart == 0">
           <p>Description:</p>
           <textarea v-model="sideB.description"></textarea><br>
+          
+          <p>Attendance code:</p>
+          <input v-model="sideB.code"><br><br>
+          
           <button class="white-button" @click="sideBPart++">Next</button>
         </div>
         <div class="requirements" v-else-if="sideBPart == 1">
@@ -95,14 +103,16 @@ export default {
       sideA: {
         description: '',
         requirements: [],
-        skills: []
+        skills: [],
+        code: 'hacksu123',
       },
       
       sideBPart: 0,
       sideB: {
         description: '',
         requirements: [],
-        skills: []
+        skills: [],
+        code: 'hacksu321',
       }
     }
   },

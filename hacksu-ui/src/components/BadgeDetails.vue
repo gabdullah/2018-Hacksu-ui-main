@@ -3,7 +3,7 @@
   <div v-if="badge">
     <router-link tag="p"
                  :to="{name: 'Badges'}"
-                 style="cursor:pointer;text-align: left;padding-left: 5vw;">
+                 style="cursor:pointer;text-align: left;padding-left: 5vw;text-decoration: underline">
       View All Badges
     </router-link>
     <h1 class="page-header">

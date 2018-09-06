@@ -261,7 +261,8 @@ header li {
     position: absolute;
     top: 55px;
     left: 0px;
-    height: 100%;
+    min-height: 100%;
+    padding-bottom: 200px;
     width: 100%;
   }
   
