@@ -227,6 +227,7 @@ export default {
 /*  You can use these anywhere in the app like this: var(--blue);         */
   --bg-black: #041017;
   --light-bg: #142027;
+  --lighter-bg: #344047;
   --blue: #5284F7;
   --dark-blue: #4274E7;
   --darker-blue: #2254C7;

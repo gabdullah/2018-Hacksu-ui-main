@@ -38,7 +38,7 @@ export default {
   methods: {
     selectBadge(id) {
       if (!this.value) {
-        console.log("No v-model provided");
+        this.$router.push({ name: 'BadgeDetails', params: { badgeID: id } });
         return;
       }
 

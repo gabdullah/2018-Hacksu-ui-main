@@ -7,6 +7,8 @@ import Contact from '@/components/Contact';
 import You from '@/components/users/You';
 import Badges from '@/components/Badges';
 
+import BadgeDetails from '@/components/BadgeDetails';
+
 import EventEditor from '@/components/Admin/EventEditor';
 import BadgeEditor from '@/components/Admin/BadgeEditor';
 
@@ -46,6 +48,11 @@ export default new Router({
       path: '/badges',
       name: 'Badges',
       component: Badges
+    },
+    {
+      path: '/badges/:badgeID',
+      name: 'BadgeDetails',
+      component: BadgeDetails
     },
     {
       path: '/event-editor',

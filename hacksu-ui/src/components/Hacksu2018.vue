@@ -71,6 +71,9 @@
         <iframe class="map-container" v-if="showMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.303743944166!2d-81.34756828434958!3d41.1497230186572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8831252c1fee9a43%3A0x65bd231d74579eb9!2sKent+State+University+Honors+College!5e0!3m2!1sen!2sus!4v1519874147929" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
       </div>
       <div class="class-container flex-col" id="events">
+        <h3 style="color: var(--bg-black);margin-bottom: -9px;margin-left: -250px">
+          UPCOMING EVENTS:
+        </h3>
         <ul class="meeting-list">
         <div v-for="event in $parent.events">
           <li> 
@@ -96,7 +99,7 @@
                   </div>
                 </div>
                 <div class="badge-holder">
-                  Skills you'll learn: 
+                  Skills you'll earn: 
                   <div v-for="id in event.sideA.skills"
                        class="flex-container"
                        >
@@ -249,6 +252,7 @@ section {
   margin-bottom: 0.375em;
 }
 .meeting-list {
+  background: var(--lighter-bg);
   color: black;
   padding-left: 100px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),
@@ -420,10 +424,10 @@ h1, h2, h3, h4, .meeting-list .header, label {
   }
   .side {
     flex-grow: 1;
+    line-height: 20px;
   }
   .side-label {
     font-weight: bold;
-    margin-bottom: -30px;
     color: var(--green);
     font-family: Courier;
   }
@@ -439,7 +443,8 @@ h1, h2, h3, h4, .meeting-list .header, label {
   .reqs-skills {
     display: flex;
     justify-content: space-around;
-    margin-top: -20px;
+    font-weight: bolder;
+    margin-top: 10px;
     margin-bottom: 20px;
   }
 h1 {
