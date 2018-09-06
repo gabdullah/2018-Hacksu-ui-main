@@ -79,13 +79,13 @@
               {{event.date.getDate()}}
             </div>
             <div class="event-header">{{event.title}}</div>
-            <div v-if="event.isLesson" style="font-size: 16px;">
+            <div v-if="event.isLesson" style="font-size: 16px;color: var(--blue)">
               A Hacksu Lesson!
             </div>
             
             <div class="side">
-              <p style="font-weight: bold;">Side A</p>
-              <p>{{event.sideA.description}}</p>
+              <div class="side-label">Side A</div>
+              <div>{{event.sideA.description}}</div>
               <div class="reqs-skills">
                 <div class="badge-holder">
                   Requirements: 
@@ -96,7 +96,7 @@
                   </div>
                 </div>
                 <div class="badge-holder">
-                  Skills: 
+                  Skills you'll learn: 
                   <div v-for="id in event.sideA.skills"
                        class="flex-container"
                        >
@@ -108,8 +108,8 @@
             </div>
             
             <div class="side">
-              <p style="font-weight: bold;">Side B</p>
-              <p>{{event.sideB.description}}</p>
+              <div class="side-label">Side B</div>
+              <div>{{event.sideB.description}}</div>
               <div class="reqs-skills">
                 <div class="badge-holder">
                   Requirements: 
@@ -121,7 +121,7 @@
                   </div>
                 </div>
                 <div class="badge-holder">
-                  Skills: 
+                  Skills you'll learn: 
                   <div class="flex-container"
                        >
                     <img v-for="id in event.sideB.skills"
@@ -257,7 +257,9 @@ section {
   margin: 0 15px;
 }
 .meeting-list li {
-  background: white;
+  background: var(--light-bg);
+  font-family: Courier;
+  color: white;
   border-bottom: 1px solid #ddd;
   display: block;
   min-height: 3rem;
@@ -315,7 +317,7 @@ member-icon-image, idle-icon, hover-icon classes are global, find them in app.vu
     flex-direction: row wrap;
   }
   .badge-holder {
-    flex-grow: 1;
+    width: 50%;
     text-align: center;
   }
   
@@ -408,6 +410,7 @@ h1, h2, h3, h4, .meeting-list .header, label {
   font-weight: bolder;
   font-size: 22px;
   margin-bottom: -28px;
+  color: var(--green);
 }
   .month {
     font-size: 14px;
@@ -417,6 +420,12 @@ h1, h2, h3, h4, .meeting-list .header, label {
   }
   .side {
     flex-grow: 1;
+  }
+  .side-label {
+    font-weight: bold;
+    margin-bottom: -30px;
+    color: var(--green);
+    font-family: Courier;
   }
 .date-disp {
   color: white;
@@ -430,6 +439,8 @@ h1, h2, h3, h4, .meeting-list .header, label {
   .reqs-skills {
     display: flex;
     justify-content: space-around;
+    margin-top: -20px;
+    margin-bottom: 20px;
   }
 h1 {
   font-size: 3em;
