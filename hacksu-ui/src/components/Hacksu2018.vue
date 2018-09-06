@@ -24,7 +24,8 @@
       <p>Hacksu is a student organization at Kent State University focused on learning and utilizing contemporary technologies. We are a very diverse community, spanning multiple majors from Fashion Design to Zoology and are open to students of any skill level. Everyone is welcome!</p>
 
       <div class= "member-container" id="members">
-        <div v-for="member in $parent.members" class='member-icon'>
+        <div v-for="(member, memberIndex) in $parent.members" class='member-icon'
+             :key="memberIndex">
           <div class="member-name">
             {{member.name || "No name!" }}
           </div>
@@ -75,7 +76,8 @@
           UPCOMING EVENTS:
         </h3>
         <ul class="meeting-list">
-        <div v-for="event in $parent.events">
+        <div v-for="(event, eventIndex) in $parent.events"
+             :key="eventIndex">
           <li> 
             <div class="date-disp">
               <div class="month">{{ prettyMonth(event.date) }}</div>
@@ -86,55 +88,75 @@
               A Hacksu Lesson!
             </div>
             
-            <div class="side">
-              <div class="side-label">Side A</div>
-              <div>{{event.sideA.description}}</div>
-              <div class="reqs-skills">
-                <div class="badge-holder">
-                  Requirements: 
-                  <div v-for="id in event.sideA.requirements"
-                       >
-                    <img :src="$parent.badgeObj[id].icon" class="badge-icon" 
-                         v-tooltip="$parent.badgeObj[id].title">
+            <div class="event-details" v-if="detailedEvent == eventIndex">
+              <div class="side">
+                <div class="side-label">Side A</div>
+                <div>{{event.sideA.description}}</div>
+                <div class="reqs-skills">
+                  <div class="badge-holder">
+                    Requirements: 
+                    <div 
+                         :to="{ name: 'BadgeDetails', params: { badgeID: id }}">
+                      <router-link tag="img"
+                                   :to="{ name: 'BadgeDetails', params: { badgeID: id }}"
+                                   v-for="id in event.sideA.requirements"
+                                   :key="id"
+                                   :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                                   v-tooltip="$parent.badgeObj[id].title"></router-link>
+                    </div>
                   </div>
-                </div>
-                <div class="badge-holder">
-                  Skills you'll earn: 
-                  <div v-for="id in event.sideA.skills"
-                       class="flex-container"
-                       >
-                    <img :src="$parent.badgeObj[id].icon" class="badge-icon" 
-                         v-tooltip="$parent.badgeObj[id].title">
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="side">
-              <div class="side-label">Side B</div>
-              <div>{{event.sideB.description}}</div>
-              <div class="reqs-skills">
-                <div class="badge-holder">
-                  Requirements: 
-                  <div class="flex-container"
-                       >
-                    <img v-for="id in event.sideB.requirements"
-                         :src="$parent.badgeObj[id].icon" class="badge-icon" 
-                         v-tooltip="$parent.badgeObj[id].title">
-                  </div>
-                </div>
-                <div class="badge-holder">
-                  Skills you'll learn: 
-                  <div class="flex-container"
-                       >
-                    <img v-for="id in event.sideB.skills"
-                         :src="$parent.badgeObj[id].icon" class="badge-icon" 
-                         v-tooltip="$parent.badgeObj[id].title">
+                  <div class="badge-holder">
+                    Skills you'll earn: 
+                    <div class="flex-container"
+                         >
+                      <router-link tag="img" 
+                                   :to="{ name: 'BadgeDetails', params: { badgeID: id }}"
+                                   v-for="id in event.sideA.skills"
+                                   :key="id"
+                                   :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                                   v-tooltip="$parent.badgeObj[id].title"></router-link>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             
+              <div class="side">
+                <div class="side-label">Side B</div>
+                <div>{{event.sideB.description}}</div>
+                <div class="reqs-skills">
+                  <div class="badge-holder">
+                    Requirements: 
+                    <div class="flex-container"
+                         >
+                      <router-link tag="img"
+                                   v-for="id in event.sideB.requirements"
+                                   :key="id"
+                                   :to="{ name: 'BadgeDetails', params: { badgeID: id }}"
+                                   :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                                   v-tooltip="$parent.badgeObj[id].title"></router-link>
+                    </div>
+                  </div>
+                  <div class="badge-holder">
+                    Skills you'll learn: 
+                    <div class="flex-container"
+                         >
+                      <router-link v-for="id in event.sideB.skills"
+                                   tag="img"
+                                   :key="id"
+                                   :to="{ name: 'BadgeDetails', params: { badgeID: id }}"
+                                   :src="$parent.badgeObj[id].icon" class="badge-icon" 
+                                   v-tooltip="$parent.badgeObj[id].title"></router-link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div v-else style="margin-top: -20px;cursor:pointer"
+                 @click="detailedEvent = eventIndex">
+              See Details
+            </div>
+              
           </li>
         </div>
         </ul>
@@ -176,8 +198,9 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      //names: ['elizabeth', 'alex', 'sami'],
       showMap: false,
+      detailedEvent: -1, // When you click 'show event details', this
+      // holds the index of the detailed event!
     };
   },
   methods: {
@@ -199,14 +222,14 @@ export default {
 }
 
 #maincontainer {
-  position:absolute;
-  width:100%;
-  left:0;
-  top:0;
-  padding-top:50px;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  padding-top: 50px;
   background: #041017;
   font-family: 'Abel', sans-serif;
-  color:white;
+  color: white;
 }
 #start-container {
   min-height: 80vh;
@@ -266,7 +289,7 @@ section {
   color: white;
   border-bottom: 1px solid #ddd;
   display: block;
-  min-height: 3rem;
+  min-height: 5.5rem;
   line-height: 3rem;
 /*  cursor: pointer;*/
   padding: 0 1rem;
