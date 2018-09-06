@@ -95,8 +95,7 @@
                 <div class="reqs-skills">
                   <div class="badge-holder">
                     Requirements: 
-                    <div 
-                         :to="{ name: 'BadgeDetails', params: { badgeID: id }}">
+                    <div >
                       <router-link tag="img"
                                    :to="{ name: 'BadgeDetails', params: { badgeID: id }}"
                                    v-for="id in event.sideA.requirements"
@@ -118,6 +117,9 @@
                     </div>
                   </div>
                 </div>
+                Attendance code:<input>&nbsp;
+                <button style="transform: scale(.6)">Submit!</button>
+                <br><br>
               </div>
             
               <div class="side">
@@ -149,6 +151,8 @@
                     </div>
                   </div>
                 </div>
+                Attendance code:<input>&nbsp;
+                <button style="transform: scale(.6)">Submit!</button>
               </div>
               
             </div>
