@@ -1,13 +1,10 @@
           /* eslint-disable /
+<h1>question</h1>
 <template>
   <div>
  <h1>FAQ Page</h1>
-  <div class= "dropdown">
-    <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-    <div id="myDropdown" class="dropdown-content">
-        <a href="#"> Link </a>
-    </div>
-  </div>
+        <h2>question</h2>
+      <p>answer</p>
     </div>
 </template>
 

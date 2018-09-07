@@ -19,7 +19,7 @@
       <a href="../static/Constitution_2017_Update.pdf" class="bannerItem" target="blank_">
         Constitution
       </a>
-      <router-link to="FAQ" class="bannerItem" v-if="0">
+      <router-link to="FAQ" class="bannerItem" v-if="1">
         FAQ
       </router-link>
       <a v-if="!loggedIn" @click="loginPopup()" class="bannerItem">
