@@ -72,7 +72,7 @@
         <iframe class="map-container" v-if="showMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.303743944166!2d-81.34756828434958!3d41.1497230186572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8831252c1fee9a43%3A0x65bd231d74579eb9!2sKent+State+University+Honors+College!5e0!3m2!1sen!2sus!4v1519874147929" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
       </div>
       <div class="class-container flex-col" id="events">
-        <h3 style="color: var(--bg-black);margin-bottom: -9px;margin-left: -250px">
+        <h3 style="color: var(--bg-black);">
           UPCOMING EVENTS:
         </h3>
         <ul class="meeting-list">
@@ -175,8 +175,8 @@
       <p>If you're interested in volunteering for Kent Hack Enough, you can join our <a href="https://khe.slack.com" target="_blank">Slack team.</a></p>
       <br><br>
       <label>Subscribe to email updates</label>
-      <input type="email" placeholder="Email..."/>
-      <button>Submit</button>
+      <input type="email" id="newEmail" placeholder="Email..."/>
+      <button @click="addEmail()" >Submit</button>
       <br>
     </div>
   </section>
@@ -197,6 +197,7 @@
 <script>
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import { config } from '../config.js';
 
 export default {
   name: 'HelloWorld',
@@ -214,6 +215,28 @@ export default {
                          ];
       var month = date.getMonth();
       return monthNames[month];
+    },
+    addEmail(){
+      const email = document.getElementById("newEmail");
+      const auth = {
+          headers: {
+            'Authorization' : 'Bearer ' + config.sendgridApiKey,
+            'Content-Type' : 'application/json'
+          }
+        }
+      if (email.value.search('@') != -1){
+        this.$http.post("https://api.sendgrid.com/v3/contactdb/recipients",  [{"email": email.value}], auth)
+        .then(result => {
+          var id = result.data.persisted_recipients[0];
+          this.$http.post("https://api.sendgrid.com/v3/contactdb/lists/972378/recipients/" + id, [], auth)
+          .then(output => {
+            email.value = "Thank you!";
+          })
+        })
+      }
+      else {
+        email.value = "Can't leave this empty!";
+      }
     }
   },
 };
